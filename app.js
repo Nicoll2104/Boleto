@@ -6,7 +6,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 .then(() => console.log("Connected to MongoDB"))
 
 const app = express()
-app.use(express.json())
+app.use(express.json());
 //git pull
 //git commit -m "nombre"
 //git push
