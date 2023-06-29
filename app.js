@@ -2,13 +2,16 @@ import express from "express";
 import 'dotenv/config'
 import mongoose from "mongoose";
 import bus from "./routes/bus.js";
+import cliente from "./models/cliente.js";
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 .then(() => console.log("Connected to MongoDB"))
 
 const app = express()
 app.use(express.json())
-app.use(    "/api/bus"  ,   bus)
+app.use(    "/api/bus"  ,   bus);
+app.use( "/api/cliente", cliente);
+
 //git pull
 //git commit -m "nombre"
 //git push
