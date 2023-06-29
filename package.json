@@ -1,7 +1,6 @@
 {
   "name": "boleto",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -17,5 +16,15 @@
     "express-validator": "^7.0.1",
     "mongoose": "^7.3.0",
     "nodemon": "^2.0.22"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicoll2104/Boleto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nicoll2104/Boleto/issues"
+  },
+  "homepage": "https://github.com/Nicoll2104/Boleto#readme",
+  "description": ""
 }
