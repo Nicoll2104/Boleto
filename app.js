@@ -8,6 +8,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 const app = express()
 app.use(express.json())
+app.use(    "/api/bus"  ,   bus)
 //git pull
 //git commit -m "nombre"
 //git push

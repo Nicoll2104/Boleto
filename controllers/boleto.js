@@ -1,4 +1,4 @@
-import bd from "../basedatos.js";
+/* import bd from "../basedatos.js";
 
 const httpBoletos = {
     getboletos: async (req, res)=>{
@@ -6,4 +6,4 @@ const httpBoletos = {
     },
 }
 
-export default httpBoletos;
+export default httpBoletos; */
