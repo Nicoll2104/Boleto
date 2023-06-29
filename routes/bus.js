@@ -7,6 +7,8 @@ router.get('/ver', httpbus.getbus  )
 
 router.post('/agregar', httpbus.postbus )
 
+router.put('/modificar/:placa', httpbus.putbus)
+
 
 
 
