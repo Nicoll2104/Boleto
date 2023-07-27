@@ -1,15 +1,27 @@
 import bd from "../basedatos.js";
-import cliente from "../models/cliente.js";
+import clientes from "../models/cliente.js"; 
 
 const httpClientes = {
     getClientes: async (req, res)=>{
-        res.json(bd.clientes)
+        /* const cliente = await cliente.find() */
+        res.json(bd.clientes);
     },
+
+    // posibilidad de errror
     getClientesCedula: async (req, res)=>{
         const {cedula} = req.params;
-        const cliente = bd.clientes.find((cliente)=> cliente.cedula == cedula);
+        const cliente = clientes.find((cliente)=> cliente.cedula == cedula);
         if (cliente == undefined)
         res.status(400).json({error: "Persona no existe"});
+        else req.json({cliente})
     },
+
+    postClientes: async(req,res)=>{
+        const{ cedula, nombre, apellido, edad, telefono, email, contraseña, maleta}= req.body;
+
+        const cliente = { cedula, nombre, apellido, edad, telefono, email, contraseña, maleta};
+        bd.clientes.push(cliente);
+        res.json({ cliente });
+},
 }
 export default httpClientes;

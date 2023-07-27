@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const cliente = new mongoose.Schema(
+const clientes = new mongoose.Schema(
     {
         cedula:{type:String, required: true,unique:true,minlength:7,maxlength:10},
         nombre:{type:String, required: true,minlength:8},
@@ -13,4 +13,4 @@ const cliente = new mongoose.Schema(
         status:{type:Number,default:1}
     })
 
-    export default mongoose.model("Cliente", cliente)
+    export default mongoose.model("Cliente", clientes)
