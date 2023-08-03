@@ -9,7 +9,7 @@ const bd = {
   ],
   clientes: [
     {
-      cedula: "3333333333",
+      cedula: "33",
       nombre: "lilian",
       apellido: "angarita",
       edad: 18,
