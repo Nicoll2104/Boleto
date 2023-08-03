@@ -16,7 +16,7 @@ router.post("/agregar",[
  check('bus', "El bus es obligatorio").not().isEmpty(),
  check('ruta',"La ruta es obligatoria").not().isEmpty(),
  check('conductor', "El conductor es obligatorio").not().isEmpty(),
- check('vendedor', "El vendedor es obligatorio") 
+ check('vendedor', "El vendedor es obligatorio").not().isEmpty()
 ], httpBoletos.postBoletos);
 
 export default router;
