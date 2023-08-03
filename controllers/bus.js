@@ -24,18 +24,17 @@ const httpbus = {
       }
     },
 
-  putbus: async (req,res) =>{
-    const placa = (req.params.placa);
-    const { soat } =req.body;
-    const bus = bd.bus.find((c) => p.placa == placa );
+  putBus: async (req,res) =>{
+    const {placa} = req.params
+    const { soat } =req.body
 
-    if(bus) {
-      if (soat) bus.soat =soat;
-      res.json({msg: "Informacion actualizada"});
-    }else res.status(400).json("Bus no encontrado")
-  }
+    const bus = await Bus.findOneAndUpdate({placa},{soat}, {new:true})
 
+    if(!bus){
+      return res.status(404).json({mensaje: 'el bus no existe'});
+    }
+    res.json ({bus});
     }
       
-
+  }
     export default httpbus;

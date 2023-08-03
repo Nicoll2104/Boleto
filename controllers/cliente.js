@@ -26,6 +26,27 @@ const httpClientes = {
         res.json({ cliente }); 
     },
 
+    putClientes: async (req, res) => {
+        const { cedula } = req.params;
+        const { telefono, email, contrasena } = req.body;
+      
+        const salt = bcryptjs.genSaltSync();
+        const Contrasena = bcryptjs.hashSync(contrasena, salt); 
+       
+        try {
+          const cliente = await clientes.findOneAndUpdate({ cedula },{ telefono, email, contrasena:Contrasena },{ new: true });
+      
+          if (!cliente) {
+            return res.status(404).json({ mensaje: 'el cliente no existe' });
+          }
+      
+          res.json({ cliente });
+        } catch (error) {
+          res.status(500).json({ error: 'Error interno del servidor' });
+        }
+      }
+      ,
+
     deleteClientes: async (req, res) => {
         const { cedula } = req.params;
         const cliente = await clientes.findOneAndDelete({ cedula });
