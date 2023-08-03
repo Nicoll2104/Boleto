@@ -1,4 +1,5 @@
 import { Router } from "express";
+import {check} from "express-validator"
 import httpbus from "../controllers/bus.js"
 
 const router=new Router()
