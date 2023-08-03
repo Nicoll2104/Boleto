@@ -1,5 +1,4 @@
-import bd from "../basedatos.js";
-import bcryptjs from "bcrypt"
+import bcryptjs from "bcrypt";
 import clientes from "../models/cliente.js"; 
 
 const httpClientes = {
@@ -8,30 +7,29 @@ const httpClientes = {
         res.json(cliente);
     },
 
-    // posibilidad de errror
     getClientesCedula: async (req, res)=>{
         const {cedula} = req.params;
-        const cliente = clientes.find((cliente)=> cliente.cedula == cedula);
+        const cliente = await clientes.find({cedula});
         if (cliente == undefined)
         res.status(400).json({error: "Persona no existe"});
-        else req.json({cliente})
-    },
+        else res.json({cliente})
+    }, 
 
     postClientes: async(req,res)=>{
-        const{ cedula, nombre, apellido, edad, telefono, email, contraseña, maleta}= req.body;
-        const cliente = { cedula, nombre, apellido, edad, telefono, email, contraseña, maleta};
+        const{ cedula, nombre, apellido, edad, telefono, email, contrasena, maleta}= req.body;
+        const cliente = new clientes({ cedula, nombre, apellido, edad, telefono, email, contrasena, maleta});
        
         const salt = bcryptjs.genSaltSync();
-        holder.contrasena = bcryptjs.hashSync(contrasena, salt)
+        cliente.contrasena = bcryptjs.hashSync(contrasena, salt) 
 
         await cliente.save()
-        res.json({ cliente });
+        res.json({ cliente }); 
     },
 
-    deleteCliente:async(req, res)=>{
+    deleteClientes: async (req, res) => {
         const { cedula } = req.params;
-        const cliente = await clientes.findOneAndDelete({ cedula }); // Use Cliente instead of cliente
+        const cliente = await clientes.findOneAndDelete({ cedula });
         res.json({ cliente });
     },
-}
+} 
 export default httpClientes;

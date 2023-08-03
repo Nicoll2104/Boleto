@@ -9,9 +9,9 @@ router.get("/:cedula", httpClientes.getClientesCedula);
 
 router.post("/agregar",[
     check('nombre', "el nombre es obligatorio").not().isEmpty(),
-    check('nombre', "minimo 8 caracteres").isLength({ min: 8, max: 50 })
+    check('nombre', "minimo 8 caracteres").isLength({ min: 5, max: 50 })
 ], httpClientes.postClientes);
 
-router.delete("/eliminar/:cedula", httpClientes.deleteCliente); 
+router.delete("/eliminar/:cedula", httpClientes.deleteClientes); 
 
 export default router;
