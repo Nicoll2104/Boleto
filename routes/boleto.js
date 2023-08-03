@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/boleto", httpBoletos.getboletos);
 
-router.post("/agregar/:codigo",[
+router.post("/agregar",[
  check('fecha_venta',"La fecha de venta es obligatoria").not().isEmpty(),
  check('hora_venta',"La hora de venta es obligatoria").not().isEmpty(),
  check('fecha_salida', " La fecha de salida es obligatoria").not().isEmpty(),

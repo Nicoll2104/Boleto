@@ -6,7 +6,7 @@ const router=new Router()
 
 router.get('/ver', httpbus.getbus  )
 
-router.post('/agregar', httpbus.postbus )
+router.post('/agregar', httpbus.postBus )
 
 router.put('/modificar/:placa', httpbus.putbus)
 

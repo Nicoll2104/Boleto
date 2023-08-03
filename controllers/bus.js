@@ -1,12 +1,16 @@
-import bd from "../basedatos.js"
+import bd from "../basedatos.js";
+import bcryptjs from "bcrypt";
+import Bus from "../models/bus.js"
 
 const httpbus = {
-  postbus: async (req, res) => {
+  postBus: async (req, res) => {
     try {
       const { placa, modelo, soat, n_asiento } = req.body;
-      const bus = { placa, modelo, soat, n_asiento };
-      bd.bus.push(bus);
+      const bus = new Bus({ placa, modelo, soat, n_asiento });
+
+      await bus.save();
       res.json({ bus });
+
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
