@@ -1,4 +1,3 @@
-import bd from "../basedatos.js";
 import bcryptjs from "bcrypt";
 import Bus from "../models/bus.js"
 
@@ -16,9 +15,10 @@ const httpbus = {
     }
   },
 
-  getbus: async (req, res) => {
+  getBus: async (req, res) => {
       try {
-        res.json(bd.bus);
+        const bus = await Bus.find()
+        res.json({bus});
       } catch (error) {
         res.status(500).json({ error: 'Ocurrió un error al obtener los datos del autobús.' });
       }
@@ -34,7 +34,21 @@ const httpbus = {
       return res.status(404).json({mensaje: 'el bus no existe'});
     }
     res.json ({bus});
+    },
+    
+    deleteBus: async (req, res) => {
+      try {
+        const { placa } = req.params;
+        const bus = await Bus.findOneAndDelete({ placa });
+    
+        if (!bus) {
+          return res.status(404).json({ mensaje: 'El bus no existe' });
+        }
+    
+        res.json({ mensaje: 'El bus ha sido eliminado' });
+      } catch (error) {
+        res.status(500).json({ error: 'Ocurrió un error al intentar eliminar el bus' });
+      }
     }
-      
   }
     export default httpbus;
