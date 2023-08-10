@@ -17,24 +17,24 @@ const httpRutas = {
         }
       },
 
-    postRuta: async (req, res) =>{
-        try{
-            const {origen, destino, horario, distancia, duracion, fecha} = req.body;
-            const rutas = new ruta({origen, destino, horario, distancia, duracion, fecha});
-        
-        await ruta.save();
-        res.json({mensaje: 'La ruta se agrego con exito'});
-        }catch(error){
-            res.status(500).json({error: 'Error interno del servidor'})
+      postRuta: async (req, res) => {
+        try {
+          const { origen, destino, horarios, distancia, duracion, fecha } = req.body;
+          const rutas = new ruta({ origen, destino, horarios, distancia, duracion, fecha });
+      
+          await rutas.save();
+          res.json({ mensaje: 'La ruta se agregó con éxito' });
+        } catch (error) {
+          res.status(500).json({ error: 'Error interno del servidor' });
         }
-    },
+      },
 
     putRuta: async (req, res) =>{
         const { id } = req.params;
-        const {origen, destino, horario, distancia, duracion, fecha} = req.body
+        const {origen, destino, horarios, distancia, duracion, fecha} = req.body
 
         try{
-            const rutas = await rutas.finfindByIdAndUpdate(id, {origen, destino, horario, distancia, duracion, fecha}, {new: true});
+            const rutas = await ruta.findByIdAndUpdate(id, {origen, destino, horarios, distancia, duracion, fecha}, {new: true});
 
             if (!rutas){
                 return res.status(404).json({ mensaje: 'La ruta no existe' });
