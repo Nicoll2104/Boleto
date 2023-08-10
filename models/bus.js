@@ -10,4 +10,4 @@ const bus = new mongoose.Schema(
         status:{type:Number,default:1}
     })
 
-    export default mongoose.model("Bus", bus)
+    export default mongoose.model("Bu", bus)

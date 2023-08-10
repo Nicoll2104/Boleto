@@ -61,6 +61,7 @@ deleteBus: async (req, res) => {
     res.status(500).json({ error: 'Ocurrió un error al intentar eliminar el bus' });
   }
 },
+
 putInactivar: async (req,res)=>{
   try {
       const {id}=req.params
@@ -71,6 +72,7 @@ putInactivar: async (req,res)=>{
       
   }
 },
+
 putActivar: async (req,res)=>{
   try {
       const {id}=req.params

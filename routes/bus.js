@@ -32,5 +32,3 @@ router.put("/inactivar/:id",httpbus.putInactivar)
 router.put("/activar/:id",httpbus.putActivar)
 
 export default router;
-
-//64d53c5e439880e4abff5824
