@@ -48,9 +48,18 @@ const httpClientes = {
       ,
 
     deleteClientes: async (req, res) => {
+      try{
         const { cedula } = req.params;
         const cliente = await clientes.findOneAndDelete({ cedula });
-        res.json({ cliente });
-    },
+      
+        if(!cliente){
+          return res.status(404).json({ mensaje: 'El cliente no existe' });
+        }
+
+        res.json({ mensaje: 'El cliente ha sido eliminado' });
+      } catch (error) {
+        res.status(500).json({ error: 'Ocurrió un error al intentar eliminar al cliente' });
+      }
+    }
 } 
 export default httpClientes;

@@ -5,6 +5,7 @@ const bus = new mongoose.Schema(
         modelo:{type: String, required: true},
         soat:{type: String, required:true},
         n_asiento:{type:Number,required:true},
+        empresa_asignada: { type: String, require:true },
         createdAt: { type: Date, default: Date.now },
         status:{type:Number,default:1}
     })
