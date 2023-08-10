@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {check} from "express-validator"
 import httpBoletos from "../controllers/boleto.js";
+import { validarcampos } from "../middlewares/validarcampos.js";
 
 const router = Router();
 
@@ -16,7 +17,10 @@ router.post("/agregar",[
  check('bus', "El bus es obligatorio").not().isEmpty(),
  check('ruta',"La ruta es obligatoria").not().isEmpty(),
  check('conductor', "El conductor es obligatorio").not().isEmpty(),
- check('vendedor', "El vendedor es obligatorio").not().isEmpty()
+ check('vendedor', "El vendedor es obligatorio").not().isEmpty(),
+validarcampos
 ], httpBoletos.postBoletos);
+
+router.delete("/eliminar/:cedula", httpBoletos.deleteBoleto);
 
 export default router;

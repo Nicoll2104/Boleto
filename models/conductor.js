@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-const conductor = new mongoose.Schema(
+const conductores = new mongoose.Schema(
     {
         cedula:{type: String, required:true,unique:true,minlength:7,maxlength:10},
-        edad:{type:Boolean,default:false},
+        edad:{type:Number,default:false},
         nombre:{type:String, required: true,minlength:8},
         apellido:{type:String, required:true,minlength:8},
         n_licencia:{type:String, required: true, unique:true,minlength:7,maxlength:10},
@@ -12,4 +12,4 @@ const conductor = new mongoose.Schema(
         status:{type:Number,default:1}
     })
 
-    export default mongoose.model("Conductor", conductor)
+    export default mongoose.model("Conductor", conductores)
