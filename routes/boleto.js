@@ -1,26 +1,44 @@
 import { Router } from "express";
-import {check} from "express-validator"
+import { check } from "express-validator";
 import httpBoletos from "../controllers/boleto.js";
 import { validarcampos } from "../middlewares/validarcampos.js";
+import { validarJWT } from "../middlewares/validar.js";
 
 const router = Router();
 
-router.get("/boleto", httpBoletos.getboletos);
+router.get("/ver", httpBoletos.getBoletos);
 
-router.post("/agregar",[
- check('fecha_venta',"La fecha de venta es obligatoria").not().isEmpty(),
- check('hora_venta',"La hora de venta es obligatoria").not().isEmpty(),
- check('fecha_salida', " La fecha de salida es obligatoria").not().isEmpty(),
- check('hora_salida', "La hora de salida es obligatoria").not().isEmpty(),
- check('Precio', "El precio es obligatorio").not().isEmpty(),
- check('cliente', "El cliente es obligatorio").not().isEmpty( ),
- check('bus', "El bus es obligatorio").not().isEmpty(),
- check('ruta',"La ruta es obligatoria").not().isEmpty(),
- check('conductor', "El conductor es obligatorio").not().isEmpty(),
- check('vendedor', "El vendedor es obligatorio").not().isEmpty(),
-validarcampos
-], httpBoletos.postBoletos);
+router.get("/boleto/:id", httpBoletos.getBoletosid);
 
-router.delete("/eliminar/:cedula", httpBoletos.deleteBoleto);
+router.get("/fecha/:fecha", httpBoletos.getBoletosPorFecha);
+
+router.get("/vendedor/:vendedor_id", httpBoletos.getBoletosPorVendedor);
+
+
+router.get("/conductor/:idConductor", httpBoletos.getBoletosPorConductor);
+
+router.post("/agregar", [
+  check("fechas", "Fechas inválidas").isArray(),
+  check("Precio", "Precio inválido").isNumeric(),
+  check("cliente", "id de cliente inválido").isMongoId(),
+  check("bus", "id de bus inválido").isMongoId(),
+  check("ruta", "id de ruta inválido").isMongoId(),
+  check("conductor", "id de conductor inválido").isMongoId(),
+  check("vendedor", "id de vendedor inválido").optional().isMongoId(),
+  validarcampos,
+], httpBoletos.postBoleto);
+
+router.put("/modificar/:id", [
+    validarcampos,
+    check("id", "Digite id").not().isEmpty(),
+    check("id", "Digite id").isMongoId(),
+    validarJWT], httpBoletos.putBoleto);
+
+router.delete("/eliminar/:id", [
+    validarJWT,
+    check("id", "Digite id").not().isEmpty(),
+    check("id", "Digite id").isMongoId(),
+    validarcampos
+], httpBoletos.deleteBoleto);
 
 export default router;

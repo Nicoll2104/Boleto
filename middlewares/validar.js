@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import Vendedor from "../models/vendedor.js";
+import "dotenv/config"
 
 const generarJWT = (uid) => {
     return new Promise((resolve, reject) => {

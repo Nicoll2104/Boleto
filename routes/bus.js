@@ -2,6 +2,7 @@ import { Router } from "express";
 import {check} from "express-validator"
 import httpbus from "../controllers/bus.js"
 import { validarcampos } from "../middlewares/validarcampos.js";
+import { validarJWT } from "../middlewares/validar.js";
 
 const router= Router();
 
@@ -22,7 +23,8 @@ router.put("/modificar/:id", [
     check('soat', "El campo SOAT es obligatorio").not().isEmpty(),
     check("n_asiento", "Asientos disponibles requeridos").not().isEmpty(),
     check("empresa_asignada", "Nombre de la empresa").not().isEmpty(),
-    validarcampos
+    validarcampos,
+    validarJWT
 ],httpbus.putBus)
 
 router.delete("/eliminar/:id",httpbus.deleteBus)
