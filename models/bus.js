@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const bus = new mongoose.Schema(
     {
-        placa:{type: Number, required: true,minlength:8},
+        placa:{type: String, required: true,minlength:5,maxlength:6},
         modelo:{type: String, required: true},
         soat:{type: String, required:true},
         n_asiento:{type:Number,required:true},
@@ -10,4 +10,4 @@ const bus = new mongoose.Schema(
         status:{type:Number,default:1}
     })
 
-    export default mongoose.model("Bu", bus)
+    export default mongoose.model('Bu', bus);

@@ -41,4 +41,7 @@ router.delete("/eliminar/:id", [
     validarcampos
 ], httpBoletos.deleteBoleto);
 
+router.put("/inactivar/:id",httpBoletos.putInactivar)
+
+router.put("/activar/:id",httpBoletos.putActivar)
 export default router;

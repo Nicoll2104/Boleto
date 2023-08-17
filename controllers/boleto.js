@@ -13,7 +13,8 @@ const httpBoletos = {
 
       res.json({ boletos });
     } catch (error) {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(500).json({ error: 'Ocurrió un error al obtener los datos del boleto.' });
     }
   },
 
@@ -122,26 +123,26 @@ const httpBoletos = {
     }
   },
 
-putInactivar: async (req,res)=>{
-  try {
-      const {id}=req.params
-      const boletos=await boletos.findByIdAndUpdate(id,{status:0},{new:true})
-      res.json({boletos})
-  } catch (error) {
-      res.status(400).json({error})
-      
-  }
-},
-
-putActivar: async (req,res)=>{
-  try {
-      const {id}=req.params
-      const boletos=await boletos.findByIdAndUpdate(id,{status:1},{new:true})
-      res.json({boletos})
-  } catch (error) {
-      res.status(400).json({error})
+  putInactivar: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const boletoInactivado = await boleto.findByIdAndUpdate(id, { status: 0 }, { new: true });
+      res.json({ boleto: boletoInactivado });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
+  
+  putActivar: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const boletoActivado = await boleto.findByIdAndUpdate(id, { status: 1 }, { new: true });
+      res.json({ boleto: boletoActivado });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
   }
 }
-};
+  
 
 export default httpBoletos;

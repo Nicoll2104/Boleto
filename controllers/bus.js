@@ -1,14 +1,13 @@
-import bcryptjs from "bcrypt";
-import Bus from "../models/bus.js"
+import bus from "../models/bus.js"
 
 const httpbus = {
   postBus: async (req, res) => {
     try {
-      const { placa, modelo, soat, n_asiento,empresa_asignada } = req.body;
-      const bus = new Bus({ placa, modelo, soat, n_asiento,empresa_asignada });
+      const { placa, modelo, soat, n_asiento, empresa_asignada } = req.body;
+      const nuevoBus = new bus({ placa, modelo, soat, n_asiento, empresa_asignada });
 
-      await bus.save();
-      res.json({ bus });
+      await nuevoBus.save();
+      res.json({ mensaje: 'El autobús se agregó con éxito', bus });
 
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });
@@ -17,7 +16,7 @@ const httpbus = {
 
   getBuses: async (req, res) => {
       try {
-        const buses = await Bus.find()
+        const buses = await bus.find()
         res.json({buses});
       } catch (error) {
         res.status(500).json({ error: 'Ocurrió un error al obtener los datos del autobús.' });
@@ -27,7 +26,7 @@ const httpbus = {
     getBus: async (req, res) => {
       const {id}=req.params
       try {
-          const bus = await Bus.findById(id)
+          const bus = await bus.findById(id)
           res.json({ bus })
           
       } catch (error) {
@@ -40,7 +39,7 @@ const httpbus = {
       const {id}=req.params
       const {n_asiento, empresa_asignada, soat}=req.body
       const bus=await 
-          Bus.findByIdAndUpdate(id,{n_asiento,empresa_asignada, soat},{new:true});
+          bus.findByIdAndUpdate(id,{n_asiento,empresa_asignada, soat},{new:true});
           res.json({ bus })
   } catch (error) {
       res.status(400).json({ error: "Error en el servidor" });
@@ -50,7 +49,7 @@ const httpbus = {
 deleteBus: async (req, res) => {
   try {
     const { id } = req.params;
-    const bus = await Bus.findByIdAndDelete(id);
+    const bus = await bus.findByIdAndDelete(id);
 
     if (!bus) {
       return res.status(404).json({ mensaje: 'El bus no existe' });
@@ -65,7 +64,7 @@ deleteBus: async (req, res) => {
 putInactivar: async (req,res)=>{
   try {
       const {id}=req.params
-      const bus=await Bus.findByIdAndUpdate(id,{status:0},{new:true})
+      const bus=await bus.findByIdAndUpdate(id,{status:0},{new:true})
       res.json({bus})
   } catch (error) {
       res.status(400).json({error})
@@ -76,7 +75,7 @@ putInactivar: async (req,res)=>{
 putActivar: async (req,res)=>{
   try {
       const {id}=req.params
-      const bus=await Bus.findByIdAndUpdate(id,{status:1},{new:true})
+      const bus=await bus.findByIdAndUpdate(id,{status:1},{new:true})
       res.json({bus})
   } catch (error) {
       res.status(400).json({error})

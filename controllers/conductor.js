@@ -1,5 +1,4 @@
-
-import conductor from "../models/conductor.js";
+import conductor from "../models/conductor.js";  
 
 const httpConductor = {
  getConductores:async(req,res)=>{
@@ -10,11 +9,11 @@ const httpConductor = {
       res.status(500).json({ error: 'Ocurrió un error al obtener los datos del conductor.' });
     }
  },
- getConductor:async(req,res)=>{
 
+ getConductor:async(req,res)=>{
   const {id} =req.params
   try{
-   const conductores = await conductor.findById(id)
+    const conductores = await conductor.findOneAndDelete({ _id: id });
    res.json({conductores})
   }catch(error){
    res.status(500).json({ error: 'Ocurrió un error al obtener los datos del conductor.' });
@@ -45,20 +44,20 @@ putConductor: async (req, res)=>{
  }
 },
 
-deleteConductor:async(req,res)=>{
-try{
-   const { id } = req.params;
-   const conductores = await conductor.findOneAndDelete({ id});
-
-   if(!conductores){
+deleteConductor: async (req, res) => {
+  try {
+    const { id } = req.params;
+    const conductorEliminado = await conductor.findByIdAndDelete(id);
+  
+    if (!conductorEliminado) {
       return res.status(404).json({ mensaje: 'El conductor no existe' });
-   }
-   res.json({ mensaje: 'El conductor ha sido eliminado'});
-}catch(error){
-   res.status(500).json({ error: 'Ocurrió un error al intentar eliminar el conductor' });
-}
-   
- },
+    }
+  
+    res.json({ mensaje: 'El conductor ha sido eliminado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Ocurrió un error al intentar eliminar al conductor' });
+  }
+},
 
  putInactivar: async (req,res)=>{
    try {
@@ -83,6 +82,6 @@ try{
 
 }
 export default httpConductor;
-// EL DELETE NO SIRVE CORRECTAMENTE
+
 
 
