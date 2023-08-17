@@ -8,7 +8,7 @@ import ruta from "./routes/ruta.js";
 import vendedor from "./routes/vendedor.js";
 import boleto from "./routes/boleto.js";
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect(process.env.mongoDB)
 .then(() => console.log("Connected to MongoDB"))
 
 const app = express()
