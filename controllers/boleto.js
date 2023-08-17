@@ -1,10 +1,21 @@
-import bd from "../basedatos.js";
 import boleto from "../models/boleto.js";
 
 const httpBoletos = {
-  getboletos: async (req, res) => {
-    res.json(boleto);
+  getBoletos: async (req, res) => {
+    try {
+      const bole = await boleto.find()
+        .populate("bus", ["placa"])
+        .populate("ruta", ["origen", "destino"])
+        .populate("cliente", ["nombre", "telefono"])
+        .populate("conductor", ["nombre", "telefono"])
+        .populate("vendedor", ["nombre", "telefono"]);
+
+      res.json({ bole });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
   },
+ 
   postBoletos: async (req, res) => {
     try {
       const { Precio, cliente, bus, ruta, conductor, vendedor } = req.body;

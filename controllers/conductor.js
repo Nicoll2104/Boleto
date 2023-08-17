@@ -33,6 +33,7 @@ postConductor: async (req, res) => {
      res.status(500).json({ error: "Error interno del servidor" });
    }
  },
+
 putConductor: async (req, res)=>{
  try{
    const {id} = req.params
@@ -43,8 +44,8 @@ putConductor: async (req, res)=>{
    res.status(400).json({ error: "Error en el servidor" });
  }
 },
- deleteConductor:async(req,res)=>{
 
+deleteConductor:async(req,res)=>{
 try{
    const { id } = req.params;
    const conductores = await conductor.findOneAndDelete({ id});

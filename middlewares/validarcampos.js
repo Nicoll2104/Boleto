@@ -1,14 +1,16 @@
 import { validationResult } from "express-validator"
 
 const validarcampos = async (req, res, next) => {
-    const token = validationResult(req);
-if(! token.isEmpty()){
+    const errors = validationResult(req);
+if(! errors.isEmpty()){
 
-    if(req.codigo){
-        return res.status(req.codigo).json({codigo:"validacion de datos a dado error"})
+    if (req.codeError) {
+        return res.status(req.codeError).json({ error: errors });
     }
-    return res.status(400).json({codigo:"validacion de datos a dado error"})
+
+    return res.status(400).json({ error: errors });
 }
+
 next();
 }
 export {validarcampos} 
