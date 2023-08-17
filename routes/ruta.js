@@ -1,22 +1,45 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import httpRutas from "../controllers/ruta.js";
+import {validarJWT} from "../middlewares/validar.js"
 import { validarcampos } from "../middlewares/validarcampos.js";
 
 const router = Router();
  
 router.get("/ver", httpRutas.getRuta);
 
-router.get("/ruta/:id", httpRutas.getRutaid);
+router.get("/ruta/:id",[
+    check("id", "El id es obligatorio").not().isEmpty(),
+    validarcampos
+], httpRutas.getRutaid);
 
-router.post("/agregar", httpRutas.postRuta);
+router.post("/agregar",[
+    check('origen',"El origen es obligatorio").not().isEmpty(),
+    check('destino',"El destino es obligatorio").not().isEmpty(),
+    check('horarios',"Los horarios son obligatorio").not().isEmpty(),
+    check('distancia',"La distancia es obligatoria").not().isEmpty(),
+    check('duracion',"La duracion es obligatoria").not().isEmpty(),
+    check('fecha',"La fecha es obligatoria").not().isEmpty(),
+], httpRutas.postRuta);
 
-router.put("/modificar/:id", httpRutas.putRuta);
+router.put("/modificar/:id",[
+    validarcampos,
+    check("id","Digite ID").not().isEmpty(),
+    check("id","Digite ID").isMongoId(),
+], httpRutas.putRuta);
 
 router.delete("/eliminar/:id", httpRutas.deleteRuta);
 
-router.put("/inactivar/:id", httpRutas.putInactivar);
+router.put("/inactivar/:id",[
+    check("id","Digite ID").not().isEmpty(),
+    check("id","Digite ID").isMongoId(),
+    validarcampos
+], httpRutas.putInactivar);
 
-router.put("/activar/:id", httpRutas.putActivar);
+router.put("/activar/:id",[
+    check("id","Digite ID").not().isEmpty(),
+    check("id","Digite ID").isMongoId(),
+    validarcampos
+], httpRutas.putActivar);
 
 export default router;
