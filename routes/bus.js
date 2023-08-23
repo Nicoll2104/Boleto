@@ -24,7 +24,7 @@ router.put("/modificar/:id", [
   check("n_asiento", "Asientos disponibles requeridos").not().isEmpty(),
   check("empresa_asignada", "Nombre de la empresa es obligatorio").not().isEmpty(),
   validarcampos,
-  validarJWT
+/*   validarJWT */
 ], httpbus.putBus);
 
 router.delete("/eliminar/:id", httpbus.deleteBus);
