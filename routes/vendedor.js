@@ -35,6 +35,8 @@ router.put("/inactivar:id",[
     validarcampos
 ], httpVendedor.putInactivar);
 
-router.post('/login', httpVendedor.login)
+router.post('/login', httpVendedor.login);
+
+router.delete('/eliminar',httpVendedor.deletevendedor);
 
 export default router
