@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import httpRutas from "../controllers/ruta.js";
-import {validarJWT} from "../middlewares/validar.js"
 import { validarcampos } from "../middlewares/validarcampos.js";
 
 const router = Router();

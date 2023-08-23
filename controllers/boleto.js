@@ -2,14 +2,9 @@ import boleto from "../models/boleto.js";
 
 const httpBoletos = {
 
-  getBoletos: async (req, res) => {
+  async getBoletos(req, res) {
     try {
-      const boletos = await boleto.find()
-        .populate("cliente", ["nombre", "telefono"])
-        .populate("bus", ["placa"])
-        .populate("ruta", ["origen", "destino"])
-        .populate("conductor", ["nombre", "telefono"])
-        .populate("vendedor", ["nombre", "telefono"]);
+      const boletos = await boleto.find();
 
       res.json({ boletos });
     } catch (error) {
@@ -18,30 +13,21 @@ const httpBoletos = {
     }
   },
 
-  getBoletosid: async (req, res) => {
+  async getBoletosid(req, res) {
     try {
-      const{id} = req.params
-      const boletos = await boleto.findById(id)
-        .populate("cliente", ["nombre", "telefono"])
-        .populate("bus", ["placa"])
-        .populate("ruta", ["origen", "destino"])
-        .populate("conductor", ["nombre", "telefono"])
-        .populate("vendedor", ["nombre", "telefono"]);
+      const { id } = req.params;
+      const boletos = await boleto.findById(id);
+
       res.json({ boletos });
     } catch (error) {
       res.status(400).json({ error });
     }
   },
 
-  getBoletosPorFecha: async (req, res) => {
+  async getBoletosPorFecha(req, res) {
     try {
       const { fecha } = req.params;
-      const boletos = await boleto.find({ "fechas.fecha_venta": fecha })
-        .populate("cliente", ["nombre", "telefono"])
-        .populate("bus", ["placa"])
-        .populate("ruta", ["origen", "destino"])
-        .populate("conductor", ["nombre", "telefono"])
-        .populate("vendedor", ["nombre", "telefono"]);
+      const boletos = await boleto.find({ "fechas.fecha_venta": fecha });
 
       res.json({ boletos });
     } catch (error) {
@@ -49,30 +35,25 @@ const httpBoletos = {
     }
   },
 
-  getBoletosPorVendedor: async (req, res) => {  //listar tikects de vendedor
+  async getBoletosPorVendedor(req, res) {
     try {
-        const { vendedor_id } = req.params;
-        if (!vendedor_id) {
-            return res.status(400).json({ error: 'Debes proporcionar el ID del vendedor.' });
-        }
+      const { vendedor_id } = req.params;
+      if (!vendedor_id) {
+        return res.status(400).json({ error: 'Debes proporcionar el ID del vendedor.' });
+      }
 
-        const boletos = await tikect.find({ vendedor: vendedor_id })
+      const boletos = await boleto.find({ vendedor: vendedor_id });
 
-        res.json({ boletos });
+      res.json({ boletos });
     } catch (error) {
-        res.status(400).json({ error: "Algo salió mal" });
+      res.status(400).json({ error: "Algo salió mal" });
     }
   },
 
-  getBoletosPorConductor: async (req, res) => {
+  async getBoletosPorConductor(req, res) {
     try {
       const { idConductor } = req.params;
-      const boletos = await boleto.find({ conductor: idConductor })
-        .populate("cliente", ["nombre", "telefono"])
-        .populate("bus", ["placa"])
-        .populate("ruta", ["origen", "destino"])
-        .populate("conductor", ["nombre", "telefono"])
-        .populate("vendedor", ["nombre", "telefono"]);
+      const boletos = await boleto.find({ conductor: idConductor });
 
       res.json({ boletos });
     } catch (error) {
@@ -80,7 +61,7 @@ const httpBoletos = {
     }
   },
 
-  postBoleto: async (req, res) => {
+  async postBoleto(req, res) {
     try {
       const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
       const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
@@ -92,7 +73,7 @@ const httpBoletos = {
     }
   },
 
-  putBoleto: async (req, res) => {
+  async putBoleto(req, res) {
     const { id } = req.params;
     const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
 
@@ -109,7 +90,7 @@ const httpBoletos = {
     }
   },
 
-  deleteBoleto: async (req, res) => {
+  async deleteBoleto(req, res) {
     const { id } = req.params;
     try {
       const boletoEliminado = await boleto.findByIdAndDelete(id);
@@ -123,7 +104,7 @@ const httpBoletos = {
     }
   },
 
-  putInactivar: async (req, res) => {
+  async putInactivar(req, res) {
     try {
       const { id } = req.params;
       const boletoInactivado = await boleto.findByIdAndUpdate(id, { status: 0 }, { new: true });
@@ -133,7 +114,7 @@ const httpBoletos = {
     }
   },
   
-  putActivar: async (req, res) => {
+  async putActivar(req, res) {
     try {
       const { id } = req.params;
       const boletoActivado = await boleto.findByIdAndUpdate(id, { status: 1 }, { new: true });
@@ -143,6 +124,5 @@ const httpBoletos = {
     }
   }
 }
-  
 
 export default httpBoletos;
