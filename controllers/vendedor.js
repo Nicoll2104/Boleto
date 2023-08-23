@@ -23,12 +23,12 @@ const httpVendedor = {
   },
   postVendedor: async (req, res) => {
    try {
-     const {cedula, nombres, apellidos, n_boletos_vendidos} = req.body;
+     const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
  
-     const conductores = new vendedor({cedula, nombres, apellidos, n_boletos_vendidos});
+     const vendedores = new vendedor({nombre,apellido,cedula,telefono,usuario,contrasena});
  
-     await conductores.save();
-     res.json({ conductores });
+     await vendedores.save();
+     res.json({ vendedores });
    } catch (error) {
      res.status(500).json({ error: "Error interno del servidor" });
    }
