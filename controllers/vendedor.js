@@ -46,14 +46,14 @@ const httpVendedor = {
  },
 
  putActivar: async (req,res)=>{
-   try {
-       const {id}=req.params
-       const vendedores=await vendedor.findByIdAndUpdate(id,{status:1},{new:true})
-       res.json({vendedores})
-   } catch (error) {
-       res.status(400).json({error: 'Se produjo un error'})
-   }
- },
+  try {
+      const {id}=req.params
+      const vendedores=await vendedor.findByIdAndUpdate(id,{status:1},{new:true})
+      res.json({vendedores})
+  } catch (error) {
+      res.status(400).json({error: 'Se produjo un error'})
+  }
+},
  deletevendedor: async (req, res) => {
   try {
       const { id } = req.params
