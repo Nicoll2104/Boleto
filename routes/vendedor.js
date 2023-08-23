@@ -23,13 +23,13 @@ router.post("/agregar",[
     validarcampos
 ], httpVendedor.postVendedor);
 
-router.put("/activar",[
+router.put("/activar:id",[
     check("id","Digite ID").not().isEmpty(),
     check("id","Digite ID").isMongoId(),
     validarJWT
 ], httpVendedor.putActivar);
 
-router.put("/inactivar",[
+router.put("/inactivar:id",[
     check("id","Digite ID").not().isEmpty(),
     check("id","Digite ID").isMongoId(),
     validarcampos
