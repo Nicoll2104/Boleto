@@ -37,6 +37,6 @@ router.put("/inactivar:id",[
 
 router.post('/login', httpVendedor.login);
 
-router.delete('/eliminar',httpVendedor.deletevendedor);
+router.delete('/eliminar/:id',httpVendedor.deletevendedor);
 
 export default router
