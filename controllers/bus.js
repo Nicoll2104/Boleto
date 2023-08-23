@@ -30,7 +30,7 @@ const httpbus = {
           res.json({ bus })
           
       } catch (error) {
-          res.status(400).json({error})
+          res.status(400).json({error: 'no se encontro el id'})
       }
     },
 
