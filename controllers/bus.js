@@ -23,7 +23,7 @@ const httpbus = {
       }
     },
 
-    getBus: async (req, res) => {
+    getBus: async(req, res)=>{
       const {id}=req.params
       try {
           const bus = await bus.findById(id)
@@ -32,7 +32,7 @@ const httpbus = {
       } catch (error) {
           res.status(400).json({error})
       }
-  },
+    },
 
   putBus: async (req,res) =>{
     try {
