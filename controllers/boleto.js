@@ -2,7 +2,7 @@ import boleto from "../models/boleto.js";
 
 const httpBoletos = {
 
-  async getBoletos(req, res) {
+  getBoletos: async(req, res) => {
     try {
       const boletos = await boleto.find();
 
@@ -13,7 +13,7 @@ const httpBoletos = {
     }
   },
 
-  async getBoletosid(req, res) {
+  getBoletosid: async(req, res) => {
     try {
       const { id } = req.params;
       const boletos = await boleto.findById(id);
@@ -24,7 +24,7 @@ const httpBoletos = {
     }
   },
 
-  async getBoletosPorFecha(req, res) {
+  getBoletosPorFecha: async(req, res) => {
     try {
       const { fecha } = req.params;
       const boletos = await boleto.find({ "fechas.fecha_venta": fecha });
@@ -35,7 +35,7 @@ const httpBoletos = {
     }
   },
 
-  async getBoletosPorVendedor(req, res) {
+  getBoletosPorVendedor: async(req, res) => {
     try {
       const { vendedor_id } = req.params;
       if (!vendedor_id) {
@@ -50,7 +50,7 @@ const httpBoletos = {
     }
   },
 
-  async getBoletosPorConductor(req, res) {
+  getBoletosPorConductor: async(req, res) => {
     try {
       const { idConductor } = req.params;
       const boletos = await boleto.find({ conductor: idConductor });
@@ -61,7 +61,7 @@ const httpBoletos = {
     }
   },
 
-  async postBoleto(req, res) {
+  postBoleto: async(req, res) => {
     try {
       const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
       const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
@@ -73,7 +73,7 @@ const httpBoletos = {
     }
   },
 
-  async putBoleto(req, res) {
+  putBoleto: async(req, res) => {
     const { id } = req.params;
     const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
 
@@ -90,7 +90,7 @@ const httpBoletos = {
     }
   },
 
-  async deleteBoleto(req, res) {
+  deleteBoleto: async (req, res) => {
     const { id } = req.params;
     try {
       const boletoEliminado = await boleto.findByIdAndDelete(id);
@@ -104,7 +104,7 @@ const httpBoletos = {
     }
   },
 
-  async putInactivar(req, res) {
+  putInactivar: async(req, res) => {
     try {
       const { id } = req.params;
       const boletoInactivado = await boleto.findByIdAndUpdate(id, { status: 0 }, { new: true });
@@ -114,7 +114,7 @@ const httpBoletos = {
     }
   },
   
-  async putActivar(req, res) {
+  putActivar: async(req, res) => {
     try {
       const { id } = req.params;
       const boletoActivado = await boleto.findByIdAndUpdate(id, { status: 1 }, { new: true });

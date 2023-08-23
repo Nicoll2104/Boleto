@@ -32,10 +32,9 @@ router.put("/modificar/:id", [
     validarcampos,
     check("id", "Digite id").not().isEmpty(),
     check("id", "Digite id").isMongoId(),
-    validarJWT], httpBoletos.putBoleto);
+  ], httpBoletos.putBoleto);
 
 router.delete("/eliminar/:id", [
-    validarJWT,
     check("id", "Digite id").not().isEmpty(),
     check("id", "Digite id").isMongoId(),
     validarcampos
