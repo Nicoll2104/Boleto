@@ -1,4 +1,3 @@
-
 import vendedor from "../models/vendedor.js"; 
 import { generarJWT } from "../middlewares/validar.js"
 const httpVendedor = {
@@ -77,11 +76,12 @@ putActivar: async (req, res) => {
                 })
             }
 
-            if (vendedores.estado === 0) {
-                return res.status(400).json({
-                    msg: "vendedor Inactivo"
-                })
-            }
+            if (vendedores.status == 0) {
+              return res.status(400).json({
+                  msg: "Vendedor inactivo"
+              });
+          }
+          
 
             const validPassword = bcryptjs.compareSync(password, vendedores.password);
             if (!validPassword) {
