@@ -3,7 +3,6 @@ import { check } from "express-validator";
 import httpbus from "../controllers/bus.js";
 import { validarcampos } from "../middlewares/validarcampos.js";
 
-
 const router = Router();
 
 router.get("/ver", httpbus.getBuses);

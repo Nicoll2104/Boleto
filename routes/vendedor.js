@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import httpVendedor from "../controllers/vendedor.js";
-import { get } from "mongoose";
 import { validarcampos } from "../middlewares/validarcampos.js";
 import {validarJWT} from "../middlewares/validar.js"
 
@@ -27,7 +26,7 @@ router.post("/agregar",[
 router.put("/activar",[
     check("id","Digite ID").not().isEmpty(),
     check("id","Digite ID").isMongoId(),
-    validarcampos
+    validarJWT
 ], httpVendedor.putActivar);
 
 router.put("/inactivar",[
