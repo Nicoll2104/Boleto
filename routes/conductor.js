@@ -32,7 +32,6 @@ router.put("/modificar/:id", [
 ], httpConductor.putConductor);
 
 router.delete("/eliminar/:id", httpConductor.deleteConductor);
-// CORREGIR, NO SIRVE CORRECTAMENTE
 
 router.put("/inactivar/:id",httpConductor.putInactivar)
 

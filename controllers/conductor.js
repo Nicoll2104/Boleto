@@ -23,22 +23,25 @@ const httpConductor = {
 postConductor: async (req, res) => {
    try {
      const {cedula, edad, nombre, apellido, n_licencia, direccion, telefono,} = req.body;
- 
      const conductores = new conductor({cedula, edad, nombre, apellido, n_licencia, direccion, telefono,});
  
      await conductores.save();
-     res.json({ conductores });
+     res.json({ mensaje: 'El conductor se agrego con éxito' });
    } catch (error) {
      res.status(500).json({ error: "Error interno del servidor" });
    }
  },
 
 putConductor: async (req, res)=>{
+  const {id} = req.params
+  const  {cedula, edad, nombre, apellido, n_licencia, direccion, telefono,}= req.body;
  try{
-   const {id} = req.params
-   const  {cedula, edad, nombre, apellido, n_licencia, direccion, telefono,}= req.body;
    const conductores = await conductor.findByIdAndUpdate(id,{cedula, edad, nombre, apellido, n_licencia, direccion, telefono,},{new:true});
-   res.json({ mensaje: 'El conductor ha sido actualizado correctamente', conductores })
+   
+   if(!conductores){
+    return res.status(404).json({ mensaje: 'El conductor no existe' });
+   }
+   res.json({ mensaje: 'El conductor ha sido actualizado correctamente' })
  }catch(error){
    res.status(400).json({ error: "Error en el servidor" });
  }
@@ -65,7 +68,7 @@ deleteConductor: async (req, res) => {
        const conductores=await conductor.findByIdAndUpdate(id,{status:0},{new:true})
        res.json({conductores})
    } catch (error) {
-       res.status(400).json({error})
+       res.status(400).json({error: 'Se produjo un error'})
        
    }
  },
@@ -76,7 +79,7 @@ deleteConductor: async (req, res) => {
        const conductores=await conductor.findByIdAndUpdate(id,{status:1},{new:true})
        res.json({conductores})
    } catch (error) {
-       res.status(400).json({error})
+       res.status(400).json({error: 'Se produjo un error'})
    }
  }
 

@@ -40,7 +40,7 @@ const httpVendedor = {
        const vendedores=await vendedor.findByIdAndUpdate(id,{status:0},{new:true})
        res.json({vendedores})
    } catch (error) {
-       res.status(400).json({error})
+       res.status(400).json({error: 'Se produjo un error'})
        
    }
  },
@@ -51,16 +51,20 @@ const httpVendedor = {
        const vendedores=await vendedor.findByIdAndUpdate(id,{status:1},{new:true})
        res.json({vendedores})
    } catch (error) {
-       res.status(400).json({error})
+       res.status(400).json({error: 'Se produjo un error'})
    }
  },
  deletevendedor: async (req, res) => {
   try {
       const { id } = req.params
       const vendedores = await vendedor.findByIdAndDelete(id)
-      res.json({vendedores})
+
+      if(!vendedores){
+        return res.status(404).json({mensaje: 'El vendedor no existe'});
+      }
+      res.json({mensaje: 'El vendedor ha sido eliminado'})
   } catch (error) {
-      res.status(400).json({ error })
+      res.status(400).json({ error: 'Ocurrió un error al intentar eliminar el vendedor' })
   }
 },
  login: async (req, res) => {

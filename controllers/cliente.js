@@ -15,7 +15,7 @@ const httpClientes = {
           res.json({ cliente })
           
       } catch (error) {
-          res.status(400).json({error})
+          res.status(400).json({error: 'No se encontro el id'})
       }
     },
 
@@ -52,8 +52,7 @@ const httpClientes = {
       } catch (error) {
         res.status(500).json({ error: 'Error interno del servidor' });
       }
-    }
-    ,
+    },
 
     deleteClientes: async (req, res) => {
       try {
@@ -76,7 +75,7 @@ const httpClientes = {
           const cliente=await clientes.findByIdAndUpdate(id,{status:0},{new:true})
           res.json({cliente})
       } catch (error) {
-          res.status(400).json({error})
+          res.status(400).json({error: 'Se produjo un error'})
           
       }
     },
@@ -87,7 +86,7 @@ const httpClientes = {
           const cliente=await clientes.findByIdAndUpdate(id,{status:1},{new:true})
           res.json({cliente})
       } catch (error) {
-          res.status(400).json({error})
+          res.status(400).json({error: 'Se produjo un error'})
       }
     }
 

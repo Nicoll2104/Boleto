@@ -13,7 +13,7 @@ const httpRutas = {
             res.json({ rutas })
             
         } catch (error) {
-            res.status(400).json({error})
+            res.status(400).json({error: 'No se encontro la ruta'})
         }
       },
 
@@ -39,7 +39,7 @@ const httpRutas = {
             if (!rutas){
                 return res.status(404).json({ mensaje: 'La ruta no existe' });
             }
-            res.json({ mensaje: 'La ruta se actualizado con éxito', rutas });
+            res.json({ mensaje: 'La ruta se actualizado con éxito'});
         } catch (error) {
         res.status(500).json({ error: 'Error interno del servidor' });
       }
@@ -65,7 +65,7 @@ const httpRutas = {
                 const rutas=await ruta.findByIdAndUpdate(id,{status:0},{new:true})
                 res.json({rutas})
             } catch (error) {
-                res.status(400).json({error})
+                res.status(400).json({error: 'Se produjo un error'})
                 
             }
           },
@@ -76,7 +76,7 @@ const httpRutas = {
                 const rutas=await ruta.findByIdAndUpdate(id,{status:1},{new:true})
                 res.json({rutas})
             } catch (error) {
-                res.status(400).json({error})
+                res.status(400).json({error: 'Se produjo un error'})
             }
           }
     }
