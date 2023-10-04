@@ -7,7 +7,7 @@ import conductor from "./routes/conductor.js";
 import ruta from "./routes/ruta.js";
 import vendedor from "./routes/vendedor.js";
 import boleto from "./routes/boleto.js";
-import cors from "cors"
+import cors from 'cors'
 mongoose.connect(process.env.mongoDB)
 .then(() => console.log("Connected to MongoDB"))
 
