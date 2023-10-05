@@ -66,7 +66,7 @@ putActivar: async (req, res) => {
   }
 },
  login: async (req, res) => {
-        const { usuario, password } = req.body;
+        const { usuario, contrasena} = req.body;
 
         try {
             const vendedores = await vendedor.findOne({ usuario })
@@ -83,7 +83,7 @@ putActivar: async (req, res) => {
           }
           
 
-            const validPassword = bcryptjs.compareSync(password, vendedores.password);
+            const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
             if (!validPassword) {
                 return res.status(401).json({
                     msg: "contraseña no son correctos"
