@@ -21,11 +21,8 @@ const httpClientes = {
 
     postClientes: async (req, res) => {
       try {
-        const { cedula, nombre, telefono, email, contrasena, } = req.body;
-        const cliente = new clientes({ cedula, nombre, telefono, email, contrasena,});
-    
-        const salt = bcryptjs.genSaltSync();
-        cliente.contrasena = bcryptjs.hashSync(contrasena, salt);
+        const { cedula, nombre, telefono, email, } = req.body;
+        const cliente = new clientes({ cedula, nombre, telefono, email,});
     
         await cliente.save();
         res.json({ mensaje: 'Cliente agregado con éxito'});
@@ -36,13 +33,10 @@ const httpClientes = {
 
     putClientes: async (req, res) => {
       const { id } = req.params;
-      const { telefono, email, contrasena } = req.body;
-    
-      const salt = bcryptjs.genSaltSync();
-      const Contrasena = bcryptjs.hashSync(contrasena, salt);
+      const { telefono, email, } = req.body;
     
       try {
-        const cliente = await clientes.findByIdAndUpdate(id, { telefono, email, contrasena: Contrasena }, { new: true });
+        const cliente = await clientes.findByIdAndUpdate(id, { telefono, email }, { new: true });
         
         if (!cliente) {
           return res.status(404).json({ mensaje: 'El cliente no existe' });
