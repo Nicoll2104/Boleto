@@ -14,14 +14,12 @@ router.post("/agregar",[
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('telefono', 'El teléfono es obligatorio y debe tener al menos 10 caracteres').isLength({ min: 10, max:10 }),
     check('email', 'El email es obligatorio').isEmail(),
-    check('contrasena', 'La contraseña es obligatoria y debe tener al menos 8 caracteres').isLength({ min: 8 }),
 validarcampos
 ],httpClientes.postClientes);
 
 router.put("/modificar/:id",[
     check('telefono', 'El teléfono es obligatorio y debe tener al menos 10 caracteres').isLength({ min: 10, max:10 }),
     check('email', 'El email es obligatorio').isEmail(),
-    check('contrasena', 'La contraseña es obligatoria y debe tener al menos 8 caracteres').isLength({ min: 8 }),
     validarcampos
 ], httpClientes.putClientes)
 
