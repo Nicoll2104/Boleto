@@ -69,6 +69,7 @@ const httpClientes = {
           const cliente=await clientes.findByIdAndUpdate(id,{status:0},{new:true})
           res.json({cliente})
       } catch (error) {
+        console.log(error);
           res.status(400).json({error: 'Se produjo un error'})
           
       }
@@ -80,6 +81,7 @@ const httpClientes = {
           const cliente=await clientes.findByIdAndUpdate(id,{status:1},{new:true})
           res.json({cliente})
       } catch (error) {
+        console.log(error);
           res.status(400).json({error: 'Se produjo un error'})
       }
     }
