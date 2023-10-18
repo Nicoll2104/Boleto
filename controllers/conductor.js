@@ -45,6 +45,7 @@ putConductor: async (req, res)=>{
  }catch(error){
    res.status(400).json({ error: "Error en el servidor" });
  }
+ 
 },
 
 deleteConductor: async (req, res) => {

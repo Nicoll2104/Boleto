@@ -21,8 +21,8 @@ const httpClientes = {
 
     postClientes: async (req, res) => {
       try {
-        const { cedula, nombre, apellido, edad, telefono, email, contrasena, maleta } = req.body;
-        const cliente = new clientes({ cedula, nombre, apellido, edad, telefono, email, contrasena, maleta });
+        const { cedula, nombre, telefono, email, contrasena, } = req.body;
+        const cliente = new clientes({ cedula, nombre, telefono, email, contrasena,});
     
         const salt = bcryptjs.genSaltSync();
         cliente.contrasena = bcryptjs.hashSync(contrasena, salt);
