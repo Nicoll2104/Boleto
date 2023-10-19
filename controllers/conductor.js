@@ -22,8 +22,8 @@ const httpConductor = {
  
 postConductor: async (req, res) => {
    try {
-     const {cedula, edad, nombre, apellido, n_licencia, direccion, telefono,} = req.body;
-     const conductores = new conductor({cedula, edad, nombre, apellido, n_licencia, direccion, telefono,});
+     const {cedula, nombre, n_licencia, direccion, telefono,} = req.body;
+     const conductores = new conductor({cedula, nombre,  n_licencia, direccion, telefono,});
  
      await conductores.save();
      res.json({ mensaje: 'El conductor se agrego con éxito' });
@@ -34,9 +34,9 @@ postConductor: async (req, res) => {
 
 putConductor: async (req, res)=>{
   const {id} = req.params
-  const  {cedula, edad, nombre, apellido, n_licencia, direccion, telefono,}= req.body;
+  const  {cedula, nombre, n_licencia, direccion, telefono,}= req.body;
  try{
-   const conductores = await conductor.findByIdAndUpdate(id,{cedula, edad, nombre, apellido, n_licencia, direccion, telefono,},{new:true});
+   const conductores = await conductor.findByIdAndUpdate(id,{cedula, nombre, n_licencia, direccion, telefono,},{new:true});
    
    if(!conductores){
     return res.status(404).json({ mensaje: 'El conductor no existe' });
