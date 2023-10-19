@@ -29,16 +29,8 @@ router.put("/modificar/:id",[
 
 router.delete("/eliminar/:id", httpRutas.deleteRuta);
 
-router.put("/inactivar/:id",[
-    check("id","Digite ID").not().isEmpty(),
-    check("id","Digite ID").isMongoId(),
-    validarcampos
-], httpRutas.putInactivar);
+router.put("/inactivar/:id", httpRutas.putInactivar);
 
-router.put("/activar/:id",[
-    check("id","Digite ID").not().isEmpty(),
-    check("id","Digite ID").isMongoId(),
-    validarcampos
-], httpRutas.putActivar);
+router.put("/activar/:id", httpRutas.putActivar);
 
 export default router;
