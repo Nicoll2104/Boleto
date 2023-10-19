@@ -5,7 +5,7 @@ import { validarcampos } from "../middlewares/validarcampos.js";
 
 const router = Router();
 
-router.get("/conductores", httpConductor.getConductores);
+router.get("/ver", httpConductor.getConductores);
 
 router.get("/conductor/:id", httpConductor.getConductor);
 
