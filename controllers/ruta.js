@@ -19,8 +19,8 @@ const httpRutas = {
 
       postRuta: async (req, res) => {
         try {
-          const { origen, destino, horarios, distancia, duracion, fecha } = req.body;
-          const rutas = new ruta({ origen, destino, horarios, distancia, duracion, fecha });
+          const { origen, destino, horario, distancia, duracion, fecha } = req.body;
+          const rutas = new ruta({ origen, destino, horario, distancia, duracion, fecha });
       
           await rutas.save();
           res.json({ mensaje: 'La ruta se agregó con éxito' });
@@ -31,10 +31,10 @@ const httpRutas = {
 
     putRuta: async (req, res) =>{
         const { id } = req.params;
-        const {origen, destino, horarios, distancia, duracion, fecha} = req.body
+        const {origen, destino, horario, distancia, duracion, fecha} = req.body
 
         try{
-            const rutas = await ruta.findByIdAndUpdate(id, {origen, destino, horarios, distancia, duracion, fecha}, {new: true});
+            const rutas = await ruta.findByIdAndUpdate(id, {origen, destino, horario, distancia, duracion, fecha}, {new: true});
 
             if (!rutas){
                 return res.status(404).json({ mensaje: 'La ruta no existe' });
