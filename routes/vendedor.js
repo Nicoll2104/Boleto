@@ -23,7 +23,7 @@ router.post("/agregar",[
     validarcampos
 ], httpVendedor.postVendedor);
 
-router.post("/modificar",[
+router.put("/modificar",[
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     check("apellido", "El apellido es obligatorio").not().isEmpty(),
     check("cedula", "La cedula es obligatoria").not().isEmpty(),
