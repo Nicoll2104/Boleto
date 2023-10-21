@@ -23,6 +23,16 @@ router.post("/agregar",[
     validarcampos
 ], httpVendedor.postVendedor);
 
+router.post("/modificarr",[
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("apellido", "El apellido es obligatorio").not().isEmpty(),
+    check("cedula", "La cedula es obligatoria").not().isEmpty(),
+    check("telefono", "El telefono es obligatorio").not().isEmpty(),
+    check("usuario", "El usuario es obligatorio").not().isEmpty(),
+    check("contrasena", "La contrasena es obligatoria").not().isEmpty(),
+    validarcampos
+], httpVendedor.putVendedor);
+
 router.put("/activar/:id", httpVendedor.putActivar);
 
 router.put("/inactivar/:id",httpVendedor.putInactivar);

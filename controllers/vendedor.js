@@ -33,6 +33,23 @@ const httpVendedor = {
    }
  },
 
+ putVendedor: async (req, res) => {
+  const { id } = req.params;
+  const { nombre, apellido, cedula, telefono, usuario,contrasena } = req.body;
+
+  try {
+    const vendedores = await vendedor.findByIdAndUpdate(id, { nombre, apellido, cedula, telefono, usuario,contrasena}, { new: true });
+    
+    if (!vendedores) {
+      return res.status(404).json({ mensaje: 'El vendedor no existe' });
+    }
+
+    res.json({ mensaje: 'El vendedor actualizado con éxito', vendedor });
+  } catch (error) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+},
+
  putInactivar: async (req, res) => {
   try {
     const { id } = req.params;
