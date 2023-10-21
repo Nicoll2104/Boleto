@@ -6,7 +6,7 @@ import {validarJWT} from "../middlewares/validar.js"
 
 const router= Router();
 
-router.get("/vendedores", httpVendedor.getVendedores);
+router.get("/ver", httpVendedor.getVendedores);
 
 router.get("/vendedor/:id",[
     check("id", "El id es obligatorio").not().isEmpty(),
