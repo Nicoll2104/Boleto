@@ -35,10 +35,10 @@ const httpVendedor = {
 
  putVendedor: async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellido, cedula, telefono, usuario,contrasena } = req.body;
+  const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
 
   try {
-    const vendedores = await vendedor.findByIdAndUpdate(id, { nombre, apellido, cedula, telefono, usuario,contrasena}, { new: true });
+    const vendedores = await vendedor.findByIdAndUpdate(id, {nombre,apellido,cedula,telefono,usuario,contrasena}, { new: true });
     
     if (!vendedores) {
       return res.status(404).json({ mensaje: 'El vendedor no existe' });
