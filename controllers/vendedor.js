@@ -35,19 +35,22 @@ const httpVendedor = {
 
  putVendedor: async (req, res) => {
   const { id } = req.params;
-  const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
+  const { nombre, apellido, cedula, telefono, usuario, contrasena } = req.body;
 
   try {
-    const vendedores = await vendedor.findByIdAndUpdate(id, {nombre,apellido,cedula,telefono,usuario,contrasena}, { new: true });
-    
-    if (!vendedores) {
-      return res.status(404).json({ mensaje: 'El vendedor no existe' });
+    const vendedorActualizado = await vendedor.findByIdAndUpdate(id, { nombre, apellido, cedula, telefono, usuario, contrasena }, { new: true });
+
+    if (!vendedorActualizado) {
+      return res.status(404).json({ mensaje: 'El vendedor no existe en la base de datos' });
     }
-    res.json({ mensaje: 'El vendedor actualizado con éxito', vendedores });
+
+    res.json({ mensaje: 'El vendedor se ha actualizado correctamente', vendedor: vendedorActualizado });
   } catch (error) {
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error('Error al actualizar el vendedor:', error);
+    res.status(500).json({ error: 'Error interno del servidor al actualizar el vendedor' });
   }
 },
+
 
  putInactivar: async (req, res) => {
   try {
