@@ -14,9 +14,9 @@ router.get("/vendedor/:id",[
 ], httpVendedor.getVendedor);
 
 router.post("/agregar",[
+    check("cedula", "La cedula es obligatoria").not().isEmpty(),
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     check("apellido", "El apellido es obligatorio").not().isEmpty(),
-    check("cedula", "La cedula es obligatoria").not().isEmpty(),
     check("telefono", "El telefono es obligatorio").not().isEmpty(),
     check("usuario", "El usuario es obligatorio").not().isEmpty(),
     check("contrasena", "La contrasena es obligatoria").not().isEmpty(),
@@ -24,9 +24,9 @@ router.post("/agregar",[
 ], httpVendedor.postVendedor);
 
 router.put("/modificar/:id",[
+    check("cedula", "La cedula es obligatoria").not().isEmpty(),
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     check("apellido", "El apellido es obligatorio").not().isEmpty(),
-    check("cedula", "La cedula es obligatoria").not().isEmpty(),
     check("telefono", "El telefono es obligatorio").not().isEmpty(),
     check("usuario", "El usuario es obligatorio").not().isEmpty(),
     check("contrasena", "La contrasena es obligatoria").not().isEmpty(),

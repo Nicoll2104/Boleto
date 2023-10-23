@@ -22,9 +22,9 @@ const httpVendedor = {
   },
   postVendedor: async (req, res) => {
    try {
-     const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
+     const {cedula,nombre,apellido,telefono,usuario,contrasena} = req.body;
  
-     const vendedores = new vendedor({nombre,apellido,cedula,telefono,usuario,contrasena});
+     const vendedores = new vendedor({cedula,nombre,apellido,telefono,usuario,contrasena});
  
      await vendedores.save();
      res.json({ vendedores });
@@ -38,7 +38,7 @@ const httpVendedor = {
   const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
 
   try {
-    const vendedores = await vendedor.findByIdAndUpdate(id, {nombre,apellido,cedula,telefono,usuario,contrasena}, { new: true });
+    const vendedores = await vendedor.findByIdAndUpdate(id, {cedula,nombre,apellido,telefono,usuario,contrasena}, { new: true });
     
     if (!vendedores) {
       return res.status(404).json({ mensaje: 'El vendedor no existe' });
