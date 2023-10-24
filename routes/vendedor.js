@@ -40,7 +40,7 @@ router.put("/inactivar/:id",httpVendedor.putInactivar);
 
 
 router.post('/login',[
-    check("correo","Digite su correo").not().isEmpty(),
+    check("usuario","Digite su correo").not().isEmpty(),
     check("contrasena","Digite su contraseña").not().isEmpty(),
 ],httpVendedor.login);
 
