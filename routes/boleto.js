@@ -19,7 +19,7 @@ router.get("/conductor/:idConductor", httpBoletos.getBoletosPorConductor);
 
 router.post("/agregar", [
   check("fechas", "Fechas inválidas").isArray(),
-  check("Precio", "Precio inválido").isNumeric(),
+  check("precio", "Precio inválido").isNumeric(),
   check("cliente", "id de cliente inválido").isMongoId(),
   check("bus", "id de bus inválido").isMongoId(),
   check("ruta", "id de ruta inválido").isMongoId(),
@@ -31,7 +31,7 @@ router.post("/agregar", [
 router.put("/modificar/:id", [
     validarcampos,
     check("fechas", "Fechas inválidas").isArray(),
-    check("Precio", "Precio inválido").isNumeric(),
+    check("precio", "Precio inválido").isNumeric(),
     check("cliente", "id de cliente inválido").isMongoId(),
     check("bus", "id de bus inválido").isMongoId(),
     check("ruta", "id de ruta inválido").isMongoId(),
