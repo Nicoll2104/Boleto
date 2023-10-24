@@ -11,7 +11,7 @@ const httpBoletos = {
           .populate("Ruta")
           .populate("Conductor")
           .populate("Vendedor");
-        return boletoePopulado;
+        return boletoPopulado;
       });
   
       const boletoPopulate = await Promise.all(boletoPopulatePromesas);
