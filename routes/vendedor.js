@@ -39,7 +39,10 @@ router.put("/activar/:id", httpVendedor.putActivar);
 router.put("/inactivar/:id",httpVendedor.putInactivar);
 
 
-router.post('/login', httpVendedor.login);
+router.post('/login',[
+    check("correo","Digite su correo").not().isEmpty(),
+    check("contrasena","Digite su contraseña").not().isEmpty(),
+],httpVendedor.login);
 
 router.delete('/eliminar/:id',httpVendedor.deletevendedor);
 
