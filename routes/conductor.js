@@ -14,7 +14,7 @@ router.post("/agregar", [
     check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').isLength({ min: 7, max: 10 }).custom(helpersConductor.validarCedulaUnica),
     check('n_licencia', "El numero de licencia es obligatorio y debe tener minimo 7 caracteres y maximo 10").isLength({ min: 7, max: 10 }),
     check('direccion', "La direccion es obligatoria").not().isEmpty( ),
-    check('telefono', "El telefono es obligatorio y debe tener minimo 10 caracteres").isLength({ min: 10, max: 10 }),
+    check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
    validarcampos
 ], httpConductor.postConductor);
 
@@ -23,7 +23,7 @@ router.put("/modificar/:id", [
     check('nombre', " El nombre es obligatorio y debe tener minimo 8 caracteres").not().isEmpty(),
     check('n_licencia', "El numero de licencia es obligatorio y debe tener minimo 7 caracteres y maximo 10").not().isEmpty(),
     check('direccion', "La direccion es obligatoria").not().isEmpty( ),
-    check('telefono', "El telefono es obligatorio y debe tener minimo 10 caracteres").not().isEmpty(),
+    check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
    validarcampos
 ], httpConductor.putConductor);
 
