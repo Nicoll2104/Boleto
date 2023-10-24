@@ -4,19 +4,19 @@ const httpBoletos = {
 
   getBoletos: async (req, res) => {
     try {
-      const tiquetePopulatePromesas = tiquete.map(async (e) => {
-        const tiquetePopulado = await Tiquete.findById(e._id)
+      const boletoPopulatePromesas = boleto.map(async (e) => {
+        const boletoPopulado = await boleto.findById(e._id)
           .populate("Cliente")
           .populate("Bus")
           .populate("Ruta")
           .populate("Conductor")
           .populate("Vendedor");
-        return tiquetePopulado;
+        return boletoePopulado;
       });
   
-      const tiquetePopulate = await Promise.all(tiquetePopulatePromesas);
+      const boletoPopulate = await Promise.all(boletoPopulatePromesas);
       
-      res.json({ tiquetePopulate });
+      res.json({ boletoPopulate });
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: 'Ocurrió un error al obtener los datos del boleto.' });
