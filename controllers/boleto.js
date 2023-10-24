@@ -63,8 +63,8 @@ const httpBoletos = {
 
   postBoleto: async(req, res) => {
     try {
-      const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
-      const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
+      const { fechas, precio, cliente, bus, ruta, conductor, vendedor } = req.body;
+      const nuevoBoleto = new boleto({ fechas, precio, cliente, bus, ruta, conductor, vendedor });
 
       await nuevoBoleto.save();
       res.json({ mensaje: 'El boleto se agregó con éxito', boleto: nuevoBoleto });
@@ -75,10 +75,10 @@ const httpBoletos = {
 
   putBoleto: async(req, res) => {
     const { id } = req.params;
-    const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
+    const { fechas, precio, cliente, bus, ruta, conductor, vendedor } = req.body;
 
     try {
-      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, Precio, cliente, bus, ruta, conductor, vendedor }, { new: true });
+      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, precio, cliente, bus, ruta, conductor, vendedor }, { new: true });
 
       if (!boletoActualizado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
