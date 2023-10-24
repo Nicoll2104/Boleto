@@ -2,16 +2,27 @@ import boleto from "../models/boleto.js";
 
 const httpBoletos = {
 
-  getBoletos: async(req, res) => {
+  getBoletos: async (req, res) => {
     try {
-      const boletos = await boleto.find();
-
-      res.json({ boletos });
+      const tiquetePopulatePromesas = tiquete.map(async (e) => {
+        const tiquetePopulado = await Tiquete.findById(e._id)
+          .populate("Cliente")
+          .populate("Bus")
+          .populate("Ruta")
+          .populate("Conductor")
+          .populate("Vendedor");
+        return tiquetePopulado;
+      });
+  
+      const tiquetePopulate = await Promise.all(tiquetePopulatePromesas);
+      
+      res.json({ tiquetePopulate });
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: 'Ocurrió un error al obtener los datos del boleto.' });
     }
   },
+  
 
   getBoletosid: async(req, res) => {
     try {
