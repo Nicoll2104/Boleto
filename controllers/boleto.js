@@ -6,11 +6,11 @@ const httpBoletos = {
     try {
       const boletoPopulatePromesas = boleto.map(async (e) => {
         const boletoPopulado = await boleto.findById(e._id)
-          .populate("Cliente")
-          .populate("Bus")
-          .populate("Ruta")
-          .populate("Conductor")
-          .populate("Vendedor");
+          .populate("cliente")
+          .populate("bus")
+          .populate("ruta")
+          .populate("conductor")
+          .populate("vendedor");
         return boletoPopulado;
       });
   
