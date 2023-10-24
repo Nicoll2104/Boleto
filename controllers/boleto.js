@@ -4,13 +4,15 @@ const httpBoletos = {
 
   getBoletos: async (req, res) => {
     try {
-      const boletoPopulatePromesas = boleto.map(async (e) => {
+      const boletos = await boleto.find()
+      console.log(boletos);
+      const boletoPopulatePromesas = boletos.map(async (e) => {
         const boletoPopulado = await boleto.findById(e._id)
-          .populate("cliente")
-          .populate("bus")
-          .populate("ruta")
-          .populate("conductor")
-          .populate("vendedor");
+          .populate("Cliente")
+          .populate("Bus")
+          .populate("Ruta")
+          .populate("Conductor")
+          .populate("Vendedor");
         return boletoPopulado;
       });
   
