@@ -1,95 +1,97 @@
-import boleto from "../models/boleto.js";
+import Boleto from "../models/boleto.js";
 
 const httpBoletos = {
-
   getBoletos: async (req, res) => {
     try {
-      const boletoPopulatePromesas = boleto.map(async (e) => {
-        const boletoPopulado = await boleto.findById(e._id)
-          .populate("cliente")
-          .populate("bus")
-          .populate("ruta")
-          .populate("conductor")
-          .populate("vendedor");
-        return boletoPopulado;
-      });
-  
-      const boletoPopulate = await Promise.all(boletoPopulatePromesas);
-      
-      res.json({ boletoPopulate });
+      const boletos = await Boleto.find()
+        .populate("cliente")
+        .populate("bus")
+        .populate("ruta")
+        .populate("conductor")
+        .populate("vendedor");
+
+      res.json({ boletos });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).json({ error: 'Ocurrió un error al obtener los datos del boleto.' });
     }
   },
-  
 
-  getBoletosid: async(req, res) => {
+  getBoletosid: async (req, res) => {
     try {
       const { id } = req.params;
-      const boletos = await boleto.findById(id);
+      const boletoEncontrado = await Boleto.findById(id);
 
-      res.json({ boletos });
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-  },
-
-  getBoletosPorFecha: async(req, res) => {
-    try {
-      const { fecha } = req.params;
-      const boletos = await boleto.find({ "fechas.fecha_venta": fecha });
-
-      res.json({ boletos });
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-  },
-
-  getBoletosPorVendedor: async(req, res) => {
-    try {
-      const { vendedor_id } = req.params;
-      if (!vendedor_id) {
-        return res.status(400).json({ error: 'Debes proporcionar el ID del vendedor.' });
+      if (!boletoEncontrado) {
+        return res.status(404).json({ mensaje: 'El boleto no existe' });
       }
 
-      const boletos = await boleto.find({ vendedor: vendedor_id });
-
-      res.json({ boletos });
+      res.json({ boleto: boletoEncontrado });
     } catch (error) {
-      res.status(400).json({ error: "Algo salió mal" });
-    }
-  },
-
-  getBoletosPorConductor: async(req, res) => {
-    try {
-      const { idConductor } = req.params;
-      const boletos = await boleto.find({ conductor: idConductor });
-
-      res.json({ boletos });
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-  },
-
-  postBoleto: async(req, res) => {
-    try {
-      const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
-      const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
-
-      await nuevoBoleto.save();
-      res.json({ mensaje: 'El boleto se agregó con éxito', boleto: nuevoBoleto });
-    } catch (error) {
+      console.error(error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
 
-  putBoleto: async(req, res) => {
-    const { id } = req.params;
-    const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
-
+  getBoletosPorFecha: async (req, res) => {
     try {
-      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, Precio, cliente, bus, ruta, conductor, vendedor }, { new: true });
+      const { fecha } = req.params;
+      const boletos = await Boleto.find({ "fechas.fecha_venta": fecha });
+
+      res.json({ boletos });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  getBoletosPorVendedor: async (req, res) => {
+    try {
+      const { vendedor_id } = req.params;
+      const boletos = await Boleto.find({ vendedor: vendedor_id });
+
+      res.json({ boletos });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  getBoletosPorConductor: async (req, res) => {
+    try {
+      const { idConductor } = req.params;
+      const boletos = await Boleto.find({ conductor: idConductor });
+
+      res.json({ boletos });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  postBoleto: async (req, res) => {
+    try {
+      const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
+      const nuevoBoleto = new Boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
+
+      await nuevoBoleto.save();
+      res.json({ mensaje: 'El boleto se agregó con éxito', boleto: nuevoBoleto });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  putBoleto: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
+
+      const boletoActualizado = await Boleto.findByIdAndUpdate(
+        id,
+        { fechas, Precio, cliente, bus, ruta, conductor, vendedor },
+        { new: true }
+      );
 
       if (!boletoActualizado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
@@ -97,23 +99,26 @@ const httpBoletos = {
 
       res.json({ mensaje: 'El boleto se actualizó con éxito', boleto: boletoActualizado });
     } catch (error) {
+      console.error(error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
 
   deleteBoleto: async (req, res) => {
-    const { id } = req.params;
     try {
-      const boletoEliminado = await boleto.findByIdAndDelete(id);
+      const { id } = req.params;
+      const boletoEliminado = await Boleto.findByIdAndDelete(id);
 
       if (!boletoEliminado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
       }
+
       res.json({ mensaje: 'El boleto ha sido eliminado' });
     } catch (error) {
+      console.error(error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
-}
+};
 
 export default httpBoletos;
