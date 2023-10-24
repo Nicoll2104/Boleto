@@ -30,8 +30,13 @@ router.post("/agregar", [
 
 router.put("/modificar/:id", [
     validarcampos,
-    check("id", "Digite id").not().isEmpty(),
-    check("id", "Digite id").isMongoId(),
+    check("fechas", "Fechas inválidas").isArray(),
+    check("Precio", "Precio inválido").isNumeric(),
+    check("cliente", "id de cliente inválido").isMongoId(),
+    check("bus", "id de bus inválido").isMongoId(),
+    check("ruta", "id de ruta inválido").isMongoId(),
+    check("conductor", "id de conductor inválido").isMongoId(),
+    check("vendedor", "id de vendedor inválido").optional().isMongoId(),
   ], httpBoletos.putBoleto);
 
 router.delete("/eliminar/:id", [
