@@ -1,5 +1,6 @@
 import vendedor from "../models/vendedor.js"; 
 import { generarJWT } from "../middlewares/validar.js"
+import bcryptjs from 'bcryptjs'; 
 const httpVendedor = {
  getVendedores: async(req,res)=>{
    try{
@@ -90,7 +91,7 @@ putActivar: async (req, res) => {
             const vendedores = await vendedor.findOne({ usuario })
             if (!vendedores) {
                 return res.status(400).json({
-                    msg: "vendedor / Password no son correctos"
+                    msg: "vendedor / Contrasena no son correctos"
                 })
             }
 
