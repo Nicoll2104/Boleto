@@ -37,42 +37,59 @@ const httpBoletos = {
     }
   },
 
-  getBoletosPorFecha: async(req, res) => {
+  getBoletosPorFecha: async (req, res) => {
     try {
-      const { fecha } = req.params;
-      const boletos = await boleto.find({ "fechas.fecha_venta": fecha });
+        const { fecha } = req.params;
+        const boletos = await boleto.find({ "fechas.fecha_venta": fecha })
+            .populate("cliente")
+            .populate("bus")
+            .populate("ruta")
+            .populate("conductor")
+            .populate("vendedor");
 
-      res.json({ boletos });
+        res.json({ boletos });
     } catch (error) {
-      res.status(400).json({ error });
+        res.status(400).json({ error });
     }
   },
 
-  getBoletosPorVendedor: async(req, res) => {
+
+  getBoletosPorVendedor: async (req, res) => {
     try {
-      const { vendedor_id } = req.params;
-      if (!vendedor_id) {
-        return res.status(400).json({ error: 'Debes proporcionar el ID del vendedor.' });
-      }
+        const { vendedor_id } = req.params;
+        if (!vendedor_id) {
+            return res.status(400).json({ error: 'Debes proporcionar el ID del vendedor.' });
+        }
 
-      const boletos = await boleto.find({ vendedor: vendedor_id });
+        const boletos = await boleto.find({ vendedor: vendedor_id })
+            .populate("cliente")
+            .populate("bus")
+            .populate("ruta")
+            .populate("conductor")
+            .populate("vendedor");
 
-      res.json({ boletos });
+        res.json({ boletos });
     } catch (error) {
-      res.status(400).json({ error: "Algo salió mal" });
+        res.status(400).json({ error: "Algo salió mal" });
     }
   },
 
-  getBoletosPorConductor: async(req, res) => {
+  getBoletosPorConductor: async (req, res) => {
     try {
-      const { idConductor } = req.params;
-      const boletos = await boleto.find({ conductor: idConductor });
+        const { idConductor } = req.params;
+        const boletos = await boleto.find({ conductor: idConductor })
+            .populate("cliente")
+            .populate("bus")
+            .populate("ruta")
+            .populate("conductor")
+            .populate("vendedor");
 
-      res.json({ boletos });
+        res.json({ boletos });
     } catch (error) {
-      res.status(400).json({ error });
+        res.status(400).json({ error });
     }
   },
+
 
   postBoleto: async(req, res) => {
     try {
