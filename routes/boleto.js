@@ -14,7 +14,6 @@ router.get("/fecha/:fecha", httpBoletos.getBoletosPorFecha);
 
 router.get("/vendedor/:vendedor_id", httpBoletos.getBoletosPorVendedor);
 
-
 router.get("/conductor/:idConductor", httpBoletos.getBoletosPorConductor);
 
 router.post("/agregar", [

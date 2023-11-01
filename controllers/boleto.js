@@ -97,7 +97,14 @@ const httpBoletos = {
       const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
 
       await nuevoBoleto.save();
-      res.json({ mensaje: 'El boleto se agregó con éxito', boleto: nuevoBoleto });
+      const boletoPopulado = await boleto.findById(nuevoBoleto._id)
+          .populate("cliente")
+          .populate("bus")
+          .populate("ruta")
+          .populate("conductor")
+          .populate("vendedor");
+
+      res.json({ mensaje: 'El boleto se agregó con éxito', boleto: boletoPopulado });
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
@@ -114,7 +121,14 @@ const httpBoletos = {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
       }
 
-      res.json({ mensaje: 'El boleto se actualizó con éxito', boleto: boletoActualizado });
+      const boletoPopulado = await boleto.findById(boletoActualizado._id)
+          .populate("cliente")
+          .populate("bus")
+          .populate("ruta")
+          .populate("conductor")
+          .populate("vendedor");
+
+      res.json({ mensaje: 'El boleto se actualizó con éxito', boleto: boletoPopulado });
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
