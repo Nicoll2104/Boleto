@@ -41,11 +41,8 @@ const httpVendedor = {
   const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
 
   try {
-    
-    const salt = bcryptjs.genSaltSync()
-    contrasena = bcryptjs.hashSync(contrasena, salt)
-    
     const vendedores = await vendedor.findByIdAndUpdate(id, {cedula,nombre,apellido,telefono,usuario,contrasena}, { new: true });
+    
     if (!vendedores) {
       return res.status(404).json({ mensaje: 'El vendedor no existe' });
     }
