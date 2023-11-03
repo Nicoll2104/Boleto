@@ -19,7 +19,7 @@ validarcampos
 ],httpClientes.postClientes);
 
 router.put("/modificar/:id",[
-    check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').not().isEmpty().custom(helpersCliente.validarCedulaUnica),
+    check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').not().isEmpty(),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
     check('email', 'El email es obligatorio').isEmail(),
