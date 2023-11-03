@@ -22,9 +22,13 @@ router.post("/agregar",[
 ], httpRutas.postRuta);
 
 router.put("/modificar/:id",[
-    validarcampos,
-    check("id","Digite ID").not().isEmpty(),
-    check("id","Digite ID").isMongoId(),
+    check('origen',"El origen es obligatorio").not().isEmpty(),
+    check('destino',"El destino es obligatorio").not().isEmpty(),
+    check('horarios',"Los horarios son obligatorio").not().isEmpty(),
+    check('distancia',"La distancia es obligatoria").not().isEmpty(),
+    check('duracion',"La duracion es obligatoria").not().isEmpty(),
+    check('fecha',"La fecha es obligatoria").not().isEmpty(),
+    validarcampos
 ], httpRutas.putRuta);
 
 router.delete("/eliminar/:id", httpRutas.deleteRuta);

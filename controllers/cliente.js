@@ -21,8 +21,8 @@ const httpClientes = {
 
     postClientes: async (req, res) => {
       try {
-        const { cedula, nombre, telefono, email, } = req.body;
-        const cliente = new clientes({ cedula, nombre, telefono, email,});
+        const { cedula, nombre, telefono, email } = req.body;
+        const cliente = new clientes({ cedula, nombre, telefono, email});
     
         await cliente.save();
         res.json({ mensaje: 'Cliente agregado con éxito'});
@@ -33,10 +33,10 @@ const httpClientes = {
 
     putClientes: async (req, res) => {
       const { id } = req.params;
-      const { telefono, email, } = req.body;
+      const {  cedula, nombre, telefono, email } = req.body;
     
       try {
-        const cliente = await clientes.findByIdAndUpdate(id, { telefono, email }, { new: true });
+        const cliente = await clientes.findByIdAndUpdate(id, {  cedula, nombre, telefono, email }, { new: true });
         
         if (!cliente) {
           return res.status(404).json({ mensaje: 'El cliente no existe' });

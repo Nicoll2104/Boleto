@@ -1,19 +1,7 @@
 import Bus from "../models/bus.js";
 
 const httpbus = {
-  postBus: async (req, res) => {
-    try {
-      const { placa, modelo, soat, n_asiento, empresa_asignada } = req.body;
-      const nuevoBus = new Bus({ placa, modelo, soat, n_asiento, empresa_asignada });
-
-      await nuevoBus.save();
-      res.json({ mensaje: 'El autobús se agregó con éxito', bus: nuevoBus });
-
-    } catch (error) {
-      res.status(500).json({ error: 'Error interno del servidor' });
-    }
-  },
-
+  
   getBuses: async (req, res) => {
     try {
       const buses = await Bus.find();
@@ -33,11 +21,24 @@ const httpbus = {
     }
   },
 
+  postBus: async (req, res) => {
+    try {
+      const { placa, modelo, soat, n_asiento, empresa_asignada } = req.body;
+      const nuevoBus = new Bus({ placa, modelo, soat, n_asiento, empresa_asignada });
+
+      await nuevoBus.save();
+      res.json({ mensaje: 'El autobús se agregó con éxito', bus: nuevoBus });
+
+    } catch (error) {
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
   putBus: async (req, res) => {
     try {
       const { id } = req.params;
-      const { n_asiento, empresa_asignada, soat } = req.body;
-      const bus = await Bus.findByIdAndUpdate(id, { n_asiento, empresa_asignada, soat }, { new: true });
+      const { placa, modelo, soat, n_asiento, empresa_asignada } = req.body;
+      const bus = await Bus.findByIdAndUpdate(id, { placa, modelo, soat, n_asiento, empresa_asignada }, { new: true });
       res.json({ bus });
     } catch (error) {
       res.status(400).json({ error: "Error en el servidor" });
