@@ -110,7 +110,7 @@ putActivar: async (req, res) => {
             const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
             if (!validPassword) {
                 return res.status(401).json({
-                    msg: "contraseña no son correctos"
+                    msg: "contraseña esta incorrecta"
                 })
             }
 
