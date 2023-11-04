@@ -87,6 +87,8 @@ putActivar: async (req, res) => {
       res.status(400).json({ error: 'Ocurrió un error al intentar eliminar el vendedor' })
   }
 },
+
+
  login: async (req, res) => {
         const { usuario, contrasena} = req.body;
 
@@ -100,7 +102,7 @@ putActivar: async (req, res) => {
 
             if (vendedores.status == 0) {
               return res.status(400).json({
-                  msg: "Vendedor inactivo"
+                  msg: "Vendedor esta inactivo"
               });
           }
           
