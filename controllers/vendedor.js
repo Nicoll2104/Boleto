@@ -102,7 +102,7 @@ putActivar: async (req, res) => {
 
             if (vendedores.status == 0) {
               return res.status(400).json({
-                  msg: "Vendedor esta inactivo"
+                  msg: "El Vendedor esta inactivo"
               });
           }
           
