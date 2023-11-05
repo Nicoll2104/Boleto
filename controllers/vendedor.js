@@ -21,20 +21,21 @@ const httpVendedor = {
     .json({ error: 'Ocurrió un error al obtener los datos del conductor.' });
    }
   },
+  
   postVendedor: async (req, res) => {
-   try {
-     const {cedula,nombre,apellido,telefono,usuario,contrasena} = req.body;
-     const vendedores = new vendedor({cedula,nombre,apellido,telefono,usuario,contrasena});
-
-     const salt = bcryptjs.genSaltSync()
-     vendedores.contrasena = bcryptjs.hashSync(contrasena, salt)
-
-     await vendedores.save();
-     res.json({ vendedores });
-   } catch (error) {
-     res.status(500).json({ error: "Error interno del servidor" });
-   }
- },
+    try {
+      const {cedula,nombre,apellido,telefono,usuario,contrasena} = req.body;
+      const vendedores = new vendedor({cedula,nombre,apellido,telefono,usuario,contrasena});
+ 
+      const salt = bcryptjs.genSaltSync()
+      vendedores.contrasena = bcryptjs.hashSync(contrasena, salt)
+ 
+      await vendedores.save();
+      res.json({ vendedores });
+    } catch (error) {
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  },
 
  putVendedor: async (req, res) => {
   const { id } = req.params;
