@@ -43,7 +43,7 @@ const httpVendedor = {
   
   try {
     const salt = bcryptjs.genSaltSync();
-    const contrasenaHash = bcryptjs.hashSync(contrasena, salt); // Usar una variable diferente para el hash
+    const contrasenaHash = bcryptjs.hashSync(contrasena, salt);
     
     const vendedores = await vendedor.findByIdAndUpdate(id, { cedula, nombre, apellido, telefono, usuario, contrasena: contrasenaHash }, { new: true });
     
