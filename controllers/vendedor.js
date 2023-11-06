@@ -39,23 +39,24 @@ const httpVendedor = {
 
  putVendedor: async (req, res) => {
   const { id } = req.params;
-  const {nombre,apellido,cedula,telefono,usuario,contrasena} = req.body;
-
+  const { nombre, apellido, cedula, telefono, usuario, contrasena } = req.body;
+  
   try {
+    const salt = bcryptjs.genSaltSync();
+    const contrasenaHash = bcryptjs.hashSync(contrasena, salt); // Usar una variable diferente para el hash
     
-    const salt = bcryptjs.genSaltSync()
-    contrasena = bcryptjs.hashSync(contrasena, salt)
+    const vendedores = await vendedor.findByIdAndUpdate(id, { cedula, nombre, apellido, telefono, usuario, contrasena: contrasenaHash }, { new: true });
     
-    const vendedores = await vendedor.findByIdAndUpdate(id, {cedula,nombre,apellido,telefono,usuario,contrasena}, { new: true });
     if (!vendedores) {
       return res.status(404).json({ mensaje: 'El vendedor no existe' });
     }
+    
     res.json({ mensaje: 'El vendedor actualizado con éxito', vendedores });
   } catch (error) {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 },
-
+  
  putInactivar: async (req, res) => {
   try {
     const { id } = req.params;
