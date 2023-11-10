@@ -98,7 +98,7 @@ putActivar: async (req, res) => {
             const vendedores = await vendedor.findOne({ usuario })
             if (!vendedores) {
                 return res.status(400).json({
-                    msg: "vendedor / Contrasena no son correctos"
+                    msg: "El usuario no es correcto"
                 })
             }
 
