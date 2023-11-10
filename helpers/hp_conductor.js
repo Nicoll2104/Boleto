@@ -9,8 +9,12 @@ const helpersConductor = {
         }
     },
 
-    validarN_licencia: async (n_licencia, id )=>{
-        const conductorN_licencia = await Conductor.findOne({ n_licencia})
+    validarN_licencia: async (n_licencia, id) => {
+        const conductorConLicencia = await Conductor.findOne({ n_licencia });
+
+        if (conductorConLicencia && conductorConLicencia._id != id) {
+            throw new Error(`Ya existe un conductor con la licencia ${n_licencia}`);
+        }
     }
 };
-export default helpersConductor
+export default helpersConductor;
