@@ -111,7 +111,7 @@ login: async (req, res) => {
       const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
       if (!validPassword) {
           return res.status(401).json({
-              msg: "contraseña esta incorrecta"
+              msg: "El usuario y la contraseña son incorrectos"
           })
       }
 
