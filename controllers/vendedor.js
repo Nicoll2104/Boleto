@@ -92,31 +92,27 @@ putActivar: async (req, res) => {
 
 
 login: async (req, res) => {
-  const { usuario, contrasena } = req.body;
+  const { usuario, contrasena} = req.body;
 
   try {
-      const vendedores = await vendedor.findOne({ usuario });
-
+      const vendedores = await vendedor.findOne({ usuario })
       if (!vendedores) {
           return res.status(400).json({
-              msg: "El usuario no es correcto"
-          });
+              msg: "El usuario y la contraseña son incorrectos"
+          })
       }
 
-      if (vendedores.status === 0) {
-          return res.status(400).json({
-              msg: "El Vendedor está inactivo"
-          });
-      }
+      if (vendedores.status == 0) {
+        return res.status(400).json({
+            msg: "El Vendedor esta inactivo"
+        });
+    }
 
-      console.log('Antes de la comparación de contraseñas');
       const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
-      console.log('Después de la comparación de contraseñas');
-
       if (!validPassword) {
           return res.status(401).json({
-              msg: "Contraseña incorrecta"
-          });
+              msg: "contraseña esta incorrecta"
+          })
       }
 
       const token = await generarJWT(vendedores.id);
@@ -124,13 +120,12 @@ login: async (req, res) => {
       res.json({
           vendedores,
           token
-      });
+      })
 
   } catch (error) {
-      console.error(error);
       return res.status(500).json({
-          msg: "Error interno del servidor"
-      });
+          msg: "nicollError"
+      })
   }
 },
 }
