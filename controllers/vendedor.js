@@ -108,10 +108,8 @@ login: async (req, res) => {
               msg: "El Vendedor está inactivo"
           });
       }
-
-      console.log('Antes de la comparación de contraseñas');
+      
       const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
-      console.log('Después de la comparación de contraseñas');
 
       if (!validPassword) {
           return res.status(401).json({
