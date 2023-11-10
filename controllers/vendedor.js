@@ -91,44 +91,48 @@ putActivar: async (req, res) => {
 },
 
 
- login: async (req, res) => {
-        const { usuario, contrasena} = req.body;
+login: async (req, res) => {
+  const { usuario, contrasena } = req.body;
 
-        try {
-            const vendedores = await vendedor.findOne({ usuario })
-            if (!vendedores) {
-                return res.status(400).json({
-                    msg: "El usuario no es correcto"
-                })
-            }
+  try {
+      const vendedores = await vendedor.findOne({ usuario });
 
-            if (vendedores.status == 0) {
-              return res.status(400).json({
-                  msg: "El Vendedor esta inactivo"
-              });
-          }
-          
+      if (!vendedores) {
+          return res.status(400).json({
+              msg: "El usuario no es correcto"
+          });
+      }
 
-            const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
-            if (!validPassword) {
-                return res.status(401).json({
-                    msg: "contraseña esta incorrecta"
-                })
-            }
+      if (vendedores.status === 0) {
+          return res.status(400).json({
+              msg: "El Vendedor está inactivo"
+          });
+      }
 
-            const token = await generarJWT(vendedores.id);
+      console.log('Antes de la comparación de contraseñas');
+      const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
+      console.log('Después de la comparación de contraseñas');
 
-            res.json({
-                vendedores,
-                token
-            })
+      if (!validPassword) {
+          return res.status(401).json({
+              msg: "Contraseña incorrecta"
+          });
+      }
 
-        } catch (error) {
-            return res.status(500).json({
-                msg: "Hable con el WebMaster"
-            })
-        }
-    },
+      const token = await generarJWT(vendedores.id);
+
+      res.json({
+          vendedores,
+          token
+      });
+
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+          msg: "Error interno del servidor"
+      });
+  }
+},
 }
 
 export default httpVendedor;
