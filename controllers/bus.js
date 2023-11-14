@@ -33,14 +33,18 @@ const httpbus = {
 
   postBus: async (req, res) => {
     try {
-      const { placa, modelo,conductor, soat, n_asiento, empresa_asignada } = req.body;
-      const nuevoBus = new Bus({ placa, modelo,conductor ,soat, n_asiento, empresa_asignada });
-
+      const { placa, modelo, conductor, soat, n_asiento, empresa_asignada } = req.body;
+      const nuevoBus = new Bus({ placa, modelo, conductor, soat, n_asiento, empresa_asignada });
+  
       await nuevoBus.save();
+      
+      console.log('Autobús guardado con éxito:', nuevoBus);
+  
       const busesPopulado = await Bus.findById(nuevoBus._id)
-        .populate("conductor")
+      .populate("conductor");
       res.json({ mensaje: 'El autobús se agregó con éxito', bus: busesPopulado });
     } catch (error) {
+      console.error('Error al procesar la solicitud o interactuar con MongoDB:', error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
@@ -48,19 +52,20 @@ const httpbus = {
   putBus: async (req, res) => {
     try {
       const { id } = req.params;
-      const { placa, modelo,conductor ,soat, n_asiento, empresa_asignada } = req.body;
-      const bus = await Bus.findByIdAndUpdate(id, { placa, modelo,conductor ,soat, n_asiento, empresa_asignada }, { new: true });
-      
-      if(!bus){
+      const { placa, modelo, conductor, soat, n_asiento, empresa_asignada } = req.body;
+      const bus = await Bus.findByIdAndUpdate(id, { placa, modelo, conductor, soat, n_asiento, empresa_asignada }, { new: true });
+  
+      if (!bus) {
         return res.status(404).json({ mensaje: 'El bus no existe' });
       }
-      
-      const busesPopulado = await Bus.findById(bus._id)
-        .populate("conductor")
-
-      res.json({ mensaje: 'El boleto se actualizó con éxito',bus:busesPopulado });
+  
+      console.log('Autobús actualizado con éxito:', bus);
+  
+      const busesPopulado = await Bus.findById(bus._id).populate("conductor");
+      res.json({ mensaje: 'El boleto se actualizó con éxito', bus: busesPopulado });
     } catch (error) {
-      res.status(500).json({ error: "Error en el servidor" });
+      console.error('Error al procesar la solicitud o interactuar con MongoDB:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
 
