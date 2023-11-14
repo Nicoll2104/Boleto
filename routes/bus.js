@@ -13,6 +13,7 @@ router.get('/bus/:id', httpbus.getBus);
 router.post("/agregar", [
   check('placa', "La placa es obligatoria y debe tener al menos 5 caracteres").isLength({ min: 5, max: 6 }).custom(helpersBus.validarPlacaUnica),
   check('modelo', "El modelo es obligatorio").not().isEmpty(),
+  check('conductor', 'El conductor es obligario').not().isEmpty(),
   check('soat', "El campo SOAT es obligatorio").not().isEmpty(),
   check('n_asiento', "El número de asiento es obligatorio").not().isEmpty(),
   check("empresa_asignada", "Nombre de la empresa es obligatorio").not().isEmpty(),
@@ -22,6 +23,7 @@ router.post("/agregar", [
 router.put("/modificar/:id", [
   check('placa', "La placa es obligatoria y debe tener al menos 5 caracteres").isLength({ min: 5, max: 6 }).custom(helpersBus.validarPlacaUnica),
   check('modelo', "El modelo es obligatorio").not().isEmpty(),
+  check('conductor', 'El conductor es obligario').not().isEmpty(),
   check('soat', "El campo SOAT es obligatorio").not().isEmpty(),
   check('n_asiento', "El número de asiento es obligatorio").not().isEmpty(),
   check("empresa_asignada", "Nombre de la empresa es obligatorio").not().isEmpty(),
