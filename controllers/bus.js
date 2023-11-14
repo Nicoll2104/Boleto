@@ -33,6 +33,8 @@ const httpbus = {
 
   postBus: async (req, res) => {
     try {
+      console.log('Datos de la solicitud:', req.body);
+  
       const { placa, modelo, conductor, soat, n_asiento, empresa_asignada } = req.body;
       const nuevoBus = new Bus({ placa, modelo, conductor, soat, n_asiento, empresa_asignada });
   
@@ -51,6 +53,8 @@ const httpbus = {
 
   putBus: async (req, res) => {
     try {
+      console.log('Datos de la solicitud:', req.body);
+  
       const { id } = req.params;
       const { placa, modelo, conductor, soat, n_asiento, empresa_asignada } = req.body;
       const bus = await Bus.findByIdAndUpdate(id, { placa, modelo, conductor, soat, n_asiento, empresa_asignada }, { new: true });
@@ -68,7 +72,7 @@ const httpbus = {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
-
+  
   deleteBus: async (req, res) => {
     try {
       const { id } = req.params;
