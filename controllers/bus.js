@@ -37,8 +37,9 @@ const httpbus = {
       const nuevoBus = new Bus({ placa, modelo,conductor ,soat, n_asiento, empresa_asignada });
 
       await nuevoBus.save();
-      res.json({ mensaje: 'El autobús se agregó con éxito', bus: nuevoBus });
-
+      const busesPopulado = await Bus.findById(nuevoBus._id)
+        .populate("conductor")
+      res.json({ mensaje: 'El autobús se agregó con éxito', bus: busesPopulado });
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
@@ -49,9 +50,17 @@ const httpbus = {
       const { id } = req.params;
       const { placa, modelo,conductor ,soat, n_asiento, empresa_asignada } = req.body;
       const bus = await Bus.findByIdAndUpdate(id, { placa, modelo,conductor ,soat, n_asiento, empresa_asignada }, { new: true });
-      res.json({ bus });
+      
+      if(!bus){
+        return res.status(404).json({ mensaje: 'El bus no existe' });
+      }
+      
+      const busesPopulado = await Bus.findById(bus._id)
+        .populate("conductor")
+
+      res.json({ mensaje: 'El boleto se actualizó con éxito',bus:busesPopulado });
     } catch (error) {
-      res.status(400).json({ error: "Error en el servidor" });
+      res.status(500).json({ error: "Error en el servidor" });
     }
   },
 
