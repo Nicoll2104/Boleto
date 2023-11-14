@@ -11,7 +11,6 @@ const httpBoletos = {
           .populate("cliente")
           .populate("bus")
           .populate("ruta")
-          .populate("conductor")
           .populate("vendedor");
         return boletoPopulado;
       });
@@ -44,7 +43,6 @@ const httpBoletos = {
             .populate("cliente")
             .populate("bus")
             .populate("ruta")
-            .populate("conductor")
             .populate("vendedor");
 
         res.json({ boletos });
@@ -65,7 +63,6 @@ const httpBoletos = {
             .populate("cliente")
             .populate("bus")
             .populate("ruta")
-            .populate("conductor")
             .populate("vendedor");
 
         res.json({ boletos });
@@ -81,7 +78,6 @@ const httpBoletos = {
             .populate("cliente")
             .populate("bus")
             .populate("ruta")
-            .populate("conductor")
             .populate("vendedor");
 
         res.json({ boletos });
@@ -93,15 +89,14 @@ const httpBoletos = {
 
   postBoleto: async(req, res) => {
     try {
-      const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
-      const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta, conductor, vendedor });
+      const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;
+      const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta,vendedor });
 
       await nuevoBoleto.save();
       const boletoPopulado = await boleto.findById(nuevoBoleto._id)
           .populate("cliente")
           .populate("bus")
           .populate("ruta")
-          .populate("conductor")
           .populate("vendedor");
 
       res.json({ mensaje: 'El boleto se agregó con éxito', boleto: boletoPopulado });
@@ -112,10 +107,10 @@ const httpBoletos = {
 
   putBoleto: async(req, res) => {
     const { id } = req.params;
-    const { fechas, Precio, cliente, bus, ruta, conductor, vendedor } = req.body;
+    const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;
 
     try {
-      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, Precio, cliente, bus, ruta, conductor, vendedor }, { new: true });
+      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, Precio, cliente, bus, ruta, vendedor }, { new: true });
 
       if (!boletoActualizado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
@@ -125,7 +120,6 @@ const httpBoletos = {
           .populate("cliente")
           .populate("bus")
           .populate("ruta")
-          .populate("conductor")
           .populate("vendedor");
 
       res.json({ mensaje: 'El boleto se actualizó con éxito', boleto: boletoPopulado });

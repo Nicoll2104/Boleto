@@ -3,6 +3,7 @@ const Bus = new mongoose.Schema(
     {
         placa:{type: String, required: true,minlength:5,maxlength:6},
         modelo:{type: String, required: true},
+        conductor:{type:mongoose.Schema.Types.ObjectId,ref:'Conductor',required:true},
         soat:{type: Date, required:true},
         n_asiento:{type:Number,required:true},
         empresa_asignada: { type: String, require:true },

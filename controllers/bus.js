@@ -5,8 +5,18 @@ const httpbus = {
   getBuses: async (req, res) => {
     try {
       const buses = await Bus.find();
-      res.json({ buses });
+      console.log(buses);
+      const busesPopulatePromesas = buses.map(async (e)=>{
+        const busesPopulado = await Bus.findById(e._id)
+        .populate("conductor");
+        return busesPopulado;
+      });
+
+      const busesPopulate = await Promise.all(busesPopulatePromesas);
+      
+      res.json({ busesPopulate });
     } catch (error) {
+      console.log(error)
       res.status(500).json({ error: 'Ocurrió un error al obtener los datos del autobús.' });
     }
   },
@@ -23,8 +33,8 @@ const httpbus = {
 
   postBus: async (req, res) => {
     try {
-      const { placa, modelo, soat, n_asiento, empresa_asignada } = req.body;
-      const nuevoBus = new Bus({ placa, modelo, soat, n_asiento, empresa_asignada });
+      const { placa, modelo,conductor, soat, n_asiento, empresa_asignada } = req.body;
+      const nuevoBus = new Bus({ placa, modelo,conductor ,soat, n_asiento, empresa_asignada });
 
       await nuevoBus.save();
       res.json({ mensaje: 'El autobús se agregó con éxito', bus: nuevoBus });
@@ -37,8 +47,8 @@ const httpbus = {
   putBus: async (req, res) => {
     try {
       const { id } = req.params;
-      const { placa, modelo, soat, n_asiento, empresa_asignada } = req.body;
-      const bus = await Bus.findByIdAndUpdate(id, { placa, modelo, soat, n_asiento, empresa_asignada }, { new: true });
+      const { placa, modelo,conductor ,soat, n_asiento, empresa_asignada } = req.body;
+      const bus = await Bus.findByIdAndUpdate(id, { placa, modelo,conductor ,soat, n_asiento, empresa_asignada }, { new: true });
       res.json({ bus });
     } catch (error) {
       res.status(400).json({ error: "Error en el servidor" });
