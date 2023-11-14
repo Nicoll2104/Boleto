@@ -35,7 +35,6 @@ const httpbus = {
     try {
       const { placa, modelo,conductor, soat, n_asiento, empresa_asignada } = req.body;
       const nuevoBus = new Bus({ placa, modelo,conductor ,soat, n_asiento, empresa_asignada });
-
       await nuevoBus.save();
       const busesPopulado = await Bus.findById(nuevoBus._id)
         .populate("conductor")
