@@ -41,6 +41,7 @@ const httpbus = {
         .populate("conductor")
       res.json({ mensaje: 'El autobús se agregó con éxito', bus: busesPopulado });
     } catch (error) {
+      console.error('Error al agregar el autobús:', error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
