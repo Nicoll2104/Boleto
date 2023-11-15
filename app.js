@@ -25,6 +25,6 @@ app.use( "/api/boleto", boleto)
 //git commit -m "nombre"
 //git push
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Servidor escuchando en el puerto ${process.env.PORT}`);
-  })
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${process.env.PORT}`);
+});

@@ -33,8 +33,8 @@ const httpbus = {
 
   postBus: async (req, res) => {
     try {
-      const { placa, modelo,conductor, soat, n_asiento, empresa_asignada } = req.body;
-      const nuevoBus = new Bus({ placa, modelo,conductor ,soat, n_asiento, empresa_asignada });
+      const { placa,numero,conductor,modelo,soat, n_asiento, empresa_asignada } = req.body;
+      const nuevoBus = new Bus({ placa,numero,conductor,modelo,soat, n_asiento, empresa_asignada });
       
       await nuevoBus.save();
       const busesPopulado = await Bus.findById(nuevoBus._id)
@@ -47,10 +47,10 @@ const httpbus = {
 
   putBus: async (req, res) => {
       const { id } = req.params;
-      const { placa, modelo,conductor ,soat, n_asiento, empresa_asignada } = req.body;
+      const {placa,numero,conductor,modelo,soat, n_asiento, empresa_asignada } = req.body;
       
       try {
-      const busActualizado = await Bus.findByIdAndUpdate(id, { placa, modelo,conductor ,soat, n_asiento, empresa_asignada }, { new: true });
+      const busActualizado = await Bus.findByIdAndUpdate(id, { placa,numero,conductor,modelo,soat, n_asiento, empresa_asignada }, { new: true });
       
       if(!busActualizado){
         return res.status(404).json({ mensaje: 'El bus no existe' });

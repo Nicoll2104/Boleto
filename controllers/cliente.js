@@ -27,6 +27,7 @@ const httpClientes = {
         await cliente.save();
         res.json({ mensaje: 'Cliente agregado con éxito'});
       } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Error interno del servidor'});
       }
     },
