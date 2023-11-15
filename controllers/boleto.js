@@ -71,22 +71,6 @@ const httpBoletos = {
     }
   },
 
-  getBoletosPorConductor: async (req, res) => {
-    try {
-        const { idConductor } = req.params;
-        const boletos = await boleto.find({ conductor: idConductor })
-            .populate("cliente")
-            .populate("bus")
-            .populate("ruta")
-            .populate("vendedor");
-
-        res.json({ boletos });
-    } catch (error) {
-        res.status(400).json({ error });
-    }
-  },
-
-
   postBoleto: async(req, res) => {
     try {
       const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;

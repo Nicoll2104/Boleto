@@ -14,15 +14,12 @@ router.get("/fecha/:fecha", httpBoletos.getBoletosPorFecha);
 
 router.get("/vendedor/:vendedor_id", httpBoletos.getBoletosPorVendedor);
 
-router.get("/conductor/:idConductor", httpBoletos.getBoletosPorConductor);
-
 router.post("/agregar", [
   check("fechas", "Fechas inválidas").isArray(),
   check("Precio", "Precio inválido").isNumeric(),
   check("cliente", "id de cliente inválido").isMongoId(),
   check("bus", "id de bus inválido").isMongoId(),
   check("ruta", "id de ruta inválido").isMongoId(),
-  check("conductor", "id de conductor inválido").isMongoId(),
   check("vendedor", "id de vendedor inválido").optional().isMongoId(),
   validarcampos,
 ], httpBoletos.postBoleto);
@@ -34,7 +31,6 @@ router.put("/modificar/:id", [
     check("cliente", "id de cliente inválido").isMongoId(),
     check("bus", "id de bus inválido").isMongoId(),
     check("ruta", "id de ruta inválido").isMongoId(),
-    check("conductor", "id de conductor inválido").isMongoId(),
     check("vendedor", "id de vendedor inválido").optional().isMongoId(),
   ], httpBoletos.putBoleto);
 
