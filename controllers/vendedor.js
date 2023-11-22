@@ -93,9 +93,12 @@ putActivar: async (req, res) => {
 
 login: async (req, res) => {
   const { usuario, contrasena} = req.body;
+  console.log(usuario);
 
   try {
       const vendedores = await vendedor.findOne({ usuario })
+
+      console.log(vendedores);
       if (!vendedores) {
           return res.status(400).json({
               msg: "El usuario y la contraseña son incorrectos"
@@ -107,6 +110,7 @@ login: async (req, res) => {
             msg: "El Vendedor esta inactivo"
         });
     }
+    console.log(contrasena);
 
       const validPassword = bcryptjs.compareSync(contrasena, vendedores.contrasena);
       if (!validPassword) {
