@@ -74,7 +74,7 @@ const httpBoletos = {
   postBoleto: async(req, res) => {
     try {
       const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;
-      const nuevoBoleto = new boleto({ fechas, Precio, cliente, bus, ruta,vendedor });
+      const nuevoBoleto = new boleto({ fechas,asientos, Precio, cliente, bus, ruta,vendedor });
 
       await nuevoBoleto.save();
       const boletoPopulado = await boleto.findById(nuevoBoleto._id)
@@ -94,7 +94,7 @@ const httpBoletos = {
     const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;
 
     try {
-      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, Precio, cliente, bus, ruta, vendedor }, { new: true });
+      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas,asientos, Precio, cliente, bus, ruta, vendedor }, { new: true });
 
       if (!boletoActualizado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
