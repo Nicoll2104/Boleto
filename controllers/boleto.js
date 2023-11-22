@@ -73,7 +73,7 @@ const httpBoletos = {
 
   postBoleto: async(req, res) => {
     try {
-      const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;
+      const { fechas,asientos, Precio, cliente, bus, ruta,vendedor } = req.body;
       const nuevoBoleto = new boleto({ fechas,asientos, Precio, cliente, bus, ruta,vendedor });
 
       await nuevoBoleto.save();
@@ -91,7 +91,7 @@ const httpBoletos = {
 
   putBoleto: async(req, res) => {
     const { id } = req.params;
-    const { fechas, Precio, cliente, bus, ruta,vendedor } = req.body;
+    const { fechas,asientos, Precio, cliente, bus, ruta,vendedor } = req.body;
 
     try {
       const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas,asientos, Precio, cliente, bus, ruta, vendedor }, { new: true });
