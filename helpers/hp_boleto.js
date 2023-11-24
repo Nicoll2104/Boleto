@@ -5,7 +5,7 @@ const helpersBoleto = {
     const boletoExistente = await Boleto.findOne({ asientos });
 
     if (boletoExistente && boletoExistente._id !== id) {
-      throw new Error(`El asiento ${asientos} ya ha sido vendido.`);
+      throw new Error(`El asiento ya ha sido vendido.`);
     }
   }
 };
