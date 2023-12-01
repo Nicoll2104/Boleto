@@ -8,13 +8,6 @@ const helpersCliente = {
             throw new Error(`Ya existe un cliente con la cédula ${cedula}`);
         }
     },
-    editarCliente: async (cedula, id, req) => {
-        const clienteConCedula = await Cliente.findOne({ cedula });
-
-        if (req.method === "PUT" && clienteConCedula && clienteConCedula._id != id) {
-            throw new Error(`Ya existe un cliente con la cédula ${cedula}`);
-        }
-    }
 };
 
 export default helpersCliente;
