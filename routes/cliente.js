@@ -11,7 +11,7 @@ router.get("/ver", httpClientes.getClientes);
 router.get("/cliente/:id", httpClientes.getClientesid);
 
 router.post("/agregar",[
-    check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').isLength({ min: 7, max: 10 }).custom(helpersCliente.editarCliente),
+    check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').isLength({ min: 7, max: 10 }).custom(helpersCliente.validarCedulaUnica),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
     check('email', 'El email es obligatorio').isEmail(),
