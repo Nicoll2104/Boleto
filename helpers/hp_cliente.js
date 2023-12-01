@@ -7,7 +7,7 @@ const helpersEdicionCliente = {
             const clienteExistente = await Cliente.findById(id);
 
             if (!clienteExistente) {
-                throw new Error(`error con el cliente con el ID ${id}`);
+                throw new Error(`No se encontró un cliente con el ID ${id}`);
             }
 
             if (nuevosDatos.cedula !== undefined && nuevosDatos.cedula !== clienteExistente.cedula) {
