@@ -1,5 +1,4 @@
 import Cliente from "../models/cliente.js";
-import helpersCliente from "./helpersCliente.js";
 
 const helpersEdicionCliente = {
     editarCliente: async (id, nuevosDatos) => {
@@ -9,7 +8,6 @@ const helpersEdicionCliente = {
             if (!clienteExistente) {
                 throw new Error(`No se encontró un cliente con el ID ${id}`);
             }
-
             if (nuevosDatos.cedula !== undefined && nuevosDatos.cedula !== clienteExistente.cedula) {
                 await helpersCliente.validarCedulaUnica(nuevosDatos.cedula, id);
                 clienteExistente.cedula = nuevosDatos.cedula;
