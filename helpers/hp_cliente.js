@@ -17,25 +17,34 @@ const helpersCliente = {
             }
 
             // Verificar si la nueva cédula ya está siendo utilizada por otro cliente
-            if (nuevosDatos.cedula && nuevosDatos.cedula !== clienteExistente.cedula) {
-                const clienteConNuevaCedula = await Cliente.findOne({ cedula: nuevosDatos.cedula });
+            if (
+                nuevosDatos.cedula &&
+                nuevosDatos.cedula !== clienteExistente.cedula
+            ) {
+                const clienteConNuevaCedula = await Cliente.findOne({
+                    cedula: nuevosDatos.cedula,
+                });
                 if (clienteConNuevaCedula) {
-                    throw new Error(`Ya existe un cliente con la cédula ${nuevosDatos.cedula}`);
+                    throw new Error(
+                        `Ya existe un cliente con la cédula ${nuevosDatos.cedula}`
+                    );
                 }
             }
 
-            // Actualizar los datos del cliente
-            const clienteActualizado = await Cliente.findByIdAndUpdate(
-                id,
-                { $set: nuevosDatos },
-                { new: true, runValidators: true }
-            );
+            // Actualizar los datos del cliente permitidos
+            clienteExistente.cedula = nuevosDatos.cedula || clienteExistente.cedula;
+            clienteExistente.nombre = nuevosDatos.nombre || clienteExistente.nombre;
+            clienteExistente.telefono = nuevosDatos.telefono || clienteExistente.telefono;
+            clienteExistente.email = nuevosDatos.email || clienteExistente.email;
+
+            // Guardar el cliente actualizado
+            const clienteActualizado = await clienteExistente.save();
 
             return clienteActualizado;
         } catch (error) {
             throw new Error(`Error al editar el cliente: ${error.message}`);
         }
-    }
+    },
 };
 
 export default helpersCliente;
