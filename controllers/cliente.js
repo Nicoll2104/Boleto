@@ -45,7 +45,7 @@ const httpClientes = {
     
         res.json({ mensaje: 'Cliente actualizado con éxito', cliente });
       } catch (error) {
-        res.status(500).json({ error: 'Error interno del servidor' });
+        res.status(500).json({ error: 'La cedula ya existe' });
       }
     },
 
