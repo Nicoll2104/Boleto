@@ -25,7 +25,7 @@ router.post("/agregar",[
 ], httpVendedor.postVendedor);
 
 router.put("/modificar/:id",[
-    check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').not().isEmpty(),
+    check('cedula', 'La cédula es obligatoria y debe tener entre 7 y 10 caracteres').isLength({ min: 7, max: 10 }),
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     check("apellido", "El apellido es obligatorio").not().isEmpty(),
     check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
