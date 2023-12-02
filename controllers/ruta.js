@@ -19,7 +19,7 @@ const httpRutas = {
 
       postRuta: async (req, res) => {
         try {
-          const { origen, destino, horarios, distancia, duracion, fecha } = req.body;
+          const { origen, destino, horarios, distancia, duracion, fecha, } = req.body;
           const rutas = new ruta({ origen, destino, horarios, distancia, duracion, fecha });
       
           await rutas.save();

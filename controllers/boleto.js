@@ -11,7 +11,8 @@ const httpBoletos = {
           .populate("cliente")
           .populate("bus")
           .populate("ruta")
-          .populate("vendedor");
+          .populate("vendedor")
+          .populate("conductor")
         return boletoPopulado;
       });
   
@@ -43,8 +44,8 @@ const httpBoletos = {
             .populate("cliente")
             .populate("bus")
             .populate("ruta")
-            .populate("vendedor");
-
+            .populate("vendedor")
+            .populate("conductor")
         res.json({ boletos });
     } catch (error) {
         res.status(400).json({ error });
@@ -63,8 +64,8 @@ const httpBoletos = {
             .populate("cliente")
             .populate("bus")
             .populate("ruta")
-            .populate("vendedor");
-
+            .populate("vendedor")
+            .populate("conductor")
         res.json({ boletos });
     } catch (error) {
         res.status(400).json({ error: "Algo salió mal" });
@@ -73,16 +74,16 @@ const httpBoletos = {
 
   postBoleto: async(req, res) => {
     try {
-      const { fechas,asientos, Precio, cliente, bus, ruta,vendedor } = req.body;
-      const nuevoBoleto = new boleto({ fechas,asientos, Precio, cliente, bus, ruta,vendedor });
+      const { fechas,asientos, Precio, cliente, bus, ruta,vendedor, conductor } = req.body;
+      const nuevoBoleto = new boleto({ fechas,asientos, Precio, cliente, bus, ruta,vendedor,conductor });
 
       await nuevoBoleto.save();
       const boletoPopulado = await boleto.findById(nuevoBoleto._id)
           .populate("cliente")
           .populate("bus")
           .populate("ruta")
-          .populate("vendedor");
-
+          .populate("vendedor")
+          .populate("conductor")
       res.json({ mensaje: 'El boleto se agregó con éxito', boleto: boletoPopulado });
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });
@@ -91,10 +92,10 @@ const httpBoletos = {
 
   putBoleto: async(req, res) => {
     const { id } = req.params;
-    const { fechas,asientos, Precio, cliente, bus, ruta,vendedor } = req.body;
+    const { fechas,asientos, Precio, cliente, bus, ruta,vendedor,conductor } = req.body;
 
     try {
-      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas,asientos, Precio, cliente, bus, ruta, vendedor }, { new: true });
+      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas,asientos, Precio, cliente, bus, ruta, vendedor,conductor }, { new: true });
 
       if (!boletoActualizado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
@@ -104,8 +105,8 @@ const httpBoletos = {
           .populate("cliente")
           .populate("bus")
           .populate("ruta")
-          .populate("vendedor");
-
+          .populate("vendedor")
+          .populate("conductor")
       res.json({ mensaje: 'El boleto se actualizó con éxito', boleto: boletoPopulado });
     } catch (error) {
       res.status(500).json({ error: 'Error interno del servidor' });

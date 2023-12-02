@@ -12,7 +12,8 @@ const boleto = new mongoose.Schema(
         cliente:{type:mongoose.Schema.Types.ObjectId,ref:'Cliente',required:true},
         bus:{type:mongoose.Schema.Types.ObjectId,ref:'Bu',required:true},
         ruta:{type:mongoose.Schema.Types.ObjectId,ref:'Ruta',required:true},
-        vendedor:{type:mongoose.Schema.Types.ObjectId,ref:'Vendedor'}
+        vendedor:{type:mongoose.Schema.Types.ObjectId,ref:'Vendedor',required:true},
+        conductor:{type:mongoose.Schema.Types.ObjectId,ref:'Conductor',required:true},
     })
 
     export default mongoose.model("Boleto", boleto)
