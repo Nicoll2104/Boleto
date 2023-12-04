@@ -2,13 +2,15 @@ import Vendedor from "../models/vendedor.js";
 
 const helpersVendedor = {
     validarCedulaUnica: async (cedula, req) => {
-        const vendedorConCedula = await Vendedor.findOne({ cedula });
+        const existe = await Vendedor.findOne({ cedula });
 
-        console.log(req);
-        
-        if (vendedorConCedula && vendedorConCedula._id != req._id) {
-            throw new Error(`Ya existe un vendedor con la cédula ${cedula}`);
-        }
-    }
+      if (existe) {
+        if (req.req.method === "PUT" && req.req.body._id != existe._id) {
+          throw new Error(
+            `Ya existe esa cedula`
+          );
+        }else if(req.req.method === 'POST') throw new Error(`Ya existe ese cedula`);
+      }
+    },
 };
 export default helpersVendedor

@@ -9,7 +9,10 @@ const httpBoletos = {
       const boletoPopulatePromesas = boletos.map(async (e) => {
         const boletoPopulado = await boleto.findById(e._id)
           .populate("cliente")
-          .populate("bus")
+          .populate({
+            path: "bus",
+            populate: [{ path: "conductor" }],
+          })
           .populate("ruta")
           .populate("vendedor");
         return boletoPopulado;
@@ -41,7 +44,10 @@ const httpBoletos = {
         const { fecha } = req.params;
         const boletos = await boleto.find({ "fechas.fecha_venta": fecha })
             .populate("cliente")
-            .populate("bus")
+            .populate({
+              path: "bus",
+              populate: [{ path: "conductor" }],
+            })
             .populate("ruta")
             .populate("vendedor");
         res.json({ boletos });
@@ -60,7 +66,10 @@ const httpBoletos = {
 
         const boletos = await boleto.find({ vendedor: vendedor_id })
             .populate("cliente")
-            .populate("bus")
+            .populate({
+              path: "bus",
+              populate: [{ path: "conductor" }],
+            })
             .populate("ruta")
             .populate("vendedor")
         res.json({ boletos });
@@ -77,7 +86,10 @@ const httpBoletos = {
       await nuevoBoleto.save();
       const boletoPopulado = await boleto.findById(nuevoBoleto._id)
         .populate("cliente")
-        .populate("bus")
+        .populate({
+          path: "bus",
+          populate: [{ path: "conductor" }],
+        })
         .populate("ruta")
         .populate("vendedor");
       res.json({ mensaje: 'El boleto se agregó con éxito', boleto: boletoPopulado });
@@ -99,7 +111,10 @@ const httpBoletos = {
 
       const boletoPopulado = await boleto.findById(boletoActualizado._id)
         .populate("cliente")
-        .populate("bus")
+        .populate({
+          path: "bus",
+          populate: [{ path: "conductor" }],
+        })
         .populate("ruta")
         .populate("vendedor");
       res.json({ mensaje: 'El boleto se actualizó con éxito', boleto: boletoPopulado });
