@@ -30,7 +30,7 @@ router.put("/modificar/:id", [
     validarcampos,
     check("fechas", "Fechas inválidas").isArray(),
     check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersBoleto.validarAsientoUnico),
-    check("Precio", "Precio inválido").isNumeric(),
+    check("Precio", "Agregue el valor").isNumeric(),
     check("cliente", "id de cliente inválido").isMongoId(),
     check("bus", "id de bus inválido").isMongoId(),
     check("ruta", "id de ruta inválido").isMongoId(),
