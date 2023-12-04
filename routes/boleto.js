@@ -23,7 +23,6 @@ router.post("/agregar", [
   check("bus", "id de bus inválido").isMongoId(),
   check("ruta", "id de ruta inválido").isMongoId(),
   check("vendedor", "id de vendedor inválido").isMongoId(),
-  check("conductor, id de conductor inválido").isMongoId(),
   validarcampos,
 ], httpBoletos.postBoleto);
 
@@ -36,7 +35,6 @@ router.put("/modificar/:id", [
     check("bus", "id de bus inválido").isMongoId(),
     check("ruta", "id de ruta inválido").isMongoId(),
     check("vendedor", "id de vendedor inválido").isMongoId(),
-    check("conductor, id de conductor inválido").isMongoId(),
   ], httpBoletos.putBoleto);
 
 router.delete("/eliminar/:id", [
