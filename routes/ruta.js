@@ -4,7 +4,7 @@ import httpRutas from "../controllers/ruta.js";
 import { validarcampos } from "../middlewares/validarcampos.js";
 
 const router = Router();
- 
+
 router.get("/ver", httpRutas.getRuta);
 
 router.get("/ruta/:id",[
