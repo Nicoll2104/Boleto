@@ -62,7 +62,7 @@ const httpBoletos = {
             .populate("cliente")
             .populate("bus")
             .populate("ruta")
-            .populate("vendedor");
+            .populate("vendedor")
         res.json({ boletos });
     } catch (error) {
         res.status(400).json({ error: "Algo salió mal" });
