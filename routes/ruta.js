@@ -18,7 +18,6 @@ router.post("/agregar",[
     check('horarios',"Los horarios son obligatorio").not().isEmpty(),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
-    check('fecha',"La fecha es obligatoria").not().isEmpty(),
 ], httpRutas.postRuta);
 
 router.put("/modificar/:id",[
@@ -27,7 +26,6 @@ router.put("/modificar/:id",[
     check('horarios',"Los horarios son obligatorio").not().isEmpty(),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
-    check('fecha',"La fecha es obligatoria").not().isEmpty(),
     validarcampos
 ], httpRutas.putRuta);
 

@@ -6,7 +6,6 @@ const ruta = new mongoose.Schema(
         horarios:{type: String, required: true},
         distancia:{type:String, required: true},
         duracion:{type: String, required: true},
-        fecha:{type: Date, required: true},
         createdAt: { type: Date, default: Date.now },
         status:{type:Number,default:1} 
     })
