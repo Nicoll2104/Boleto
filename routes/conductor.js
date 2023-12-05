@@ -27,7 +27,6 @@ router.put("/modificar/:id", [
     check('direccion', "La direccion es obligatoria").not().isEmpty( ),
     check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
     check('cedula').custom(helpersConductor.validarCedulaUnica),
-
    validarcampos
 ], httpConductor.postConductor);
 
