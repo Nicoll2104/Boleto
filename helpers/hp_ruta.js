@@ -6,7 +6,7 @@ const helpersRuta = {
             const existingRoute = await Ruta.findOne({ horarios });
 
             if (existingRoute) {
-                if (operationType === "PUT" && existingId !== null && existingId !== existingRoute._id) {
+                if (operationType === "PUT" && existingId !== null && existingId !== existingRoute._id.toString()) {
                     throw new Error("Ya existe esa hora");
                 } else if (operationType === "POST") {
                     throw new Error("Ya existe esta hora");
