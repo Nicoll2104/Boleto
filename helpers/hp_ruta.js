@@ -1,15 +1,19 @@
 import Ruta from "../models/ruta.js";
 
 const helpersRuta = {
-    validarHoraUnica: async (horarios,req)=>{
-        const existe = await Ruta.findOne({ horarios });
+    validarHoraUnica: async (horarios, operationType, existingId = null) => {
+        try {
+            const existingRoute = await Ruta.findOne({ horarios });
 
-        if (existe){
-            if (req.req.method === "PUT" && req.req.body._id != existe._id){
-                throw new Error(
-                    `Ya existe esa hora`
-                );
-            }else if(req.req.method === 'POST') throw new Error(`Ya existe esta hora`);
+            if (existingRoute) {
+                if (operationType === "PUT" && existingId !== null && existingId !== existingRoute._id) {
+                    throw new Error("Ya existe esa hora");
+                } else if (operationType === "POST") {
+                    throw new Error("Ya existe esta hora");
+                }
+            }
+        } catch (error) {
+            throw new Error(`Error al validar la hora única: ${error.message}`);
         }
     },
 };
