@@ -33,20 +33,25 @@ const httpConductor = {
   },
 
   putConductor: async (req, res) => {
-    const { id } = req.params
-    const { cedula, nombre, n_licencia, direccion, telefono, } = req.body;
+    const { id } = req.params;
+    const { cedula, nombre, n_licencia, direccion, telefono } = req.body;
+  
     try {
-      const conductores = await conductor.findByIdAndUpdate(id, { cedula, nombre, n_licencia, direccion, telefono, }, { new: true });
-
-      if (!conductores) {
+      const conductorActualizado = await conductor.findByIdAndUpdate(
+        id,
+        { cedula, nombre, n_licencia, direccion, telefono },
+        { new: true }
+      );
+  
+      if (!conductorActualizado) {
         return res.status(404).json({ mensaje: 'El conductor no existe' });
       }
-      res.json({ mensaje: 'El conductor ha sido actualizado correctamente' })
+  
+      res.json({ mensaje: 'El conductor ha sido actualizado correctamente' });
     } catch (error) {
-      res.status(400).json({ error: "Error en el servidor" });
+      res.status(500).json({ error: "Error en el servidor" });
     }
-
-  },
+  },  
 
   deleteConductor: async (req, res) => {
     try {
