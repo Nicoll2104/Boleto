@@ -1,13 +1,22 @@
 import Boleto from "../models/boleto.js";
 
-const helpersBoleto = {
-  validarAsientoUnico: async (asientos, id) => {
-    const boletoExistente = await Boleto.findOne({ asientos });
+const helpersAsiento = {
+  validarAsientoDisponible: async (asiento) => {
+    try {
+      // Verificar si el asiento está en algún boleto vendido
+      const boletoExistente = await Boleto.findOne({ asientos: asiento });
 
-    if (boletoExistente && boletoExistente._id !== id) {
-      throw new Error(`El asiento ya ha sido vendido.`);
+      if (boletoExistente) {
+        throw new Error(`El asiento ${asiento} ya está ocupado.`);
+      }
+
+      // Si el asiento no está ocupado, está disponible para vender
+      return true;
+    } catch (error) {
+      throw new Error(error.message);
     }
   }
 };
 
-export default helpersBoleto;
+export default helpersAsiento;
+
