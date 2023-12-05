@@ -28,7 +28,7 @@ router.put("/modificar/:id", [
     check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
     check('cedula').custom(helpersConductor.validarCedulaUnica),
    validarcampos
-], httpConductor.postConductor);
+], httpConductor.putConductor);
 
 router.delete("/eliminar/:id", httpConductor.deleteConductor);
 
