@@ -2,6 +2,8 @@ import { Router } from "express";
 import { check } from "express-validator";
 import httpRutas from "../controllers/ruta.js";
 import { validarcampos } from "../middlewares/validarcampos.js";
+import helpersRuta from "../helpers/hp_ruta.js";
+
 
 const router = Router();
 
@@ -18,6 +20,7 @@ router.post("/agregar",[
     check('horarios',"Los horarios son obligatorio").not().isEmpty(),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
+    check('horarios').custom(helpersRuta.validarHoraUnica),
 ], httpRutas.postRuta);
 
 router.put("/modificar/:id",[
@@ -26,6 +29,7 @@ router.put("/modificar/:id",[
     check('horarios',"Los horarios son obligatorio").not().isEmpty(),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
+    check('horarios').custom(helpersRuta.validarHoraUnica),
     validarcampos
 ], httpRutas.putRuta);
 
