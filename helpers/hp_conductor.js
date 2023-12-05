@@ -2,35 +2,22 @@ import Conductor from "../models/conductor.js";
 
 const helpersConductor = {
   validarCedulaUnica: async (cedula, req) => {
-    try {
-      const { method, body: { _id } } = req.req;
+    const existe = await Conductor.findOne({ cedula });
 
-      const existe = await Conductor.findOne({ cedula });
-
-      if (existe) {
-        if (method === "PUT" && _id !== existe._id.toString()) {
-          throw new Error(`Ya existe esa cédula`);
-        } else if (method === "POST") {
-          throw new Error(`Ya existe esa cédula`);
-        }
-      }
-    } catch (error) {
-      throw new Error(error.message);
+    if (existe) {
+      if (req.req.method === "PUT" && req.req.body._id != existe._id) {
+        throw new Error(`Ya existe esa cedula`);
+      } else if (req.req.method === "POST")
+        throw new Error(`Ya existe esa cedula`);
     }
   },
 
   validarN_licencia: async (n_licencia, id) => {
-    try {
-      const conductorConLicencia = await Conductor.findOne({ n_licencia });
+    const conductorConLicencia = await Conductor.findOne({ n_licencia });
 
-      if (conductorConLicencia && conductorConLicencia._id !== id) {
-        throw new Error(`Ya existe un conductor con la licencia ${n_licencia}`);
-      }
-    } catch (error) {
-      throw new Error(error.message);
+    if (conductorConLicencia && conductorConLicencia._id != id) {
+      throw new Error(`Ya existe un conductor con la licencia ${n_licencia}`);
     }
   },
 };
-
 export default helpersConductor;
-
