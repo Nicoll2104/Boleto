@@ -4,7 +4,6 @@ import httpBoletos from "../controllers/boleto.js";
 import { validarcampos } from "../middlewares/validarcampos.js";
 import { validarJWT } from "../middlewares/validar.js";
 import helpersBoleto from "../helpers/hp_boleto.js";
-import helpersAsiento from "../helpers/hp_boleto.js";
 
 const router = Router();
 
@@ -18,7 +17,7 @@ router.get("/vendedor/:vendedor_id", httpBoletos.getBoletosPorVendedor);
 
 router.post("/agregar", [
   check("fechas", "Fechas inválidas").isArray(),
-  check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersAsiento.validarAsientoDisponible),
+  check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersBoleto.validarAsientoUnico),
   check("Precio", "Precio inválido").isNumeric(),
   check("cliente", "id de cliente inválido").isMongoId(),
   check("bus", "id de bus inválido").isMongoId(),
@@ -30,7 +29,7 @@ router.post("/agregar", [
 router.put("/modificar/:id", [
     validarcampos,
     check("fechas", "Fechas inválidas").isArray(),
-    check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersAsiento.validarAsientoDisponible),
+    check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersBoleto.validarAsientoUnico),
     check("Precio", "Agregue el valor").isNumeric(),
     check("cliente", "id de cliente inválido").isMongoId(),
     check("bus", "id de bus inválido").isMongoId(),
