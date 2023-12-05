@@ -26,7 +26,7 @@ router.put("/modificar/:id", [
     check('n_licencia', "El numero de licencia es obligatorio y debe tener minimo 7 caracteres y maximo 10").isLength({ min: 7, max: 10 }),
     check('direccion', "La direccion es obligatoria").not().isEmpty( ),
     check('telefono', 'El teléfono es obligatorio y debe tener minimo 9 números').isLength({ min: 9 }), 
-    check('cedula').custom((value, { req }) => helpersConductor.validarCedulaUnica(value, req, true)),
+    check('cedula').custom(helpersConductor.validarCedulaUnica),
    validarcampos
 ], httpConductor.putConductor);
 
