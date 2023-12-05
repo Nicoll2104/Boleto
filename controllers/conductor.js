@@ -43,7 +43,7 @@ const httpConductor = {
       }
       res.json({ mensaje: 'El conductor ha sido actualizado correctamente' })
     } catch (error) {
-      res.status(400).json({ error: "Error en el servidor" });
+      res.status(400).json({ error: error});
     }
 
   },
