@@ -11,7 +11,7 @@ router.get("/ver", httpbus.getBuses);
 router.get('/bus/:id', httpbus.getBus);
 
 router.post("/agregar", [
-  check('placa', "La placa es obligatoria y debe tener al menos 5 caracteres").isLength({ min: 5, max: 6 }).custom(helpersBus.validarPlacaUnica),
+  check('placa', "La placa es obligatoria y debe tener al menos 6 caracteres").isLength({ min: 5, max: 7 }).custom(helpersBus.validarPlacaUnica),
   check('numero', "El numero es obligatorio").not().isEmpty(),
   check('conductor', 'El conductor es obligario').not().isEmpty(),
   check('modelo', "El modelo es obligatorio").not().isEmpty(),
