@@ -17,10 +17,9 @@ router.get("/ruta/:id",[
 router.post("/agregar",[
     check('origen',"El origen es obligatorio").not().isEmpty(),
     check('destino',"El destino es obligatorio").not().isEmpty(),
-    check('horarios',"Los horarios son obligatorio").not().isEmpty(),
+    check('horarios',"Los horarios son obligatorio").not().isEmpty().custom(helpersRuta.validarHoraUnica),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
-    check('horarios').custom(helpersRuta.validarHoraUnica),
 ], httpRutas.postRuta);
 
 router.put("/modificar/:id",[
@@ -29,7 +28,6 @@ router.put("/modificar/:id",[
     check('horarios',"Los horarios son obligatorio").not().isEmpty(),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
-    check('horarios').custom(helpersRuta.validarHoraUnica),
     validarcampos
 ], httpRutas.putRuta);
 
