@@ -6,11 +6,12 @@ const helpersConductor = {
 
     if (existe) {
       if (req.req.method === "PUT" && req.req.body._id != existe._id) {
-        throw new Error(`Ya existe esa cedula`);
-      } else if (req.req.method === 'POST')
-        throw new Error(`Ya existe ese cedula`);
-    }
-  },
+        throw new Error(
+        `Ya existe esa cedula`
+      );
+    }else if(req.req.method === 'POST') throw new Error(`Ya existe ese cedula`);
+  }
+},
 
   validarN_licencia: async (n_licencia, id) => {
     const conductorConLicencia = await Conductor.findOne({ n_licencia });
