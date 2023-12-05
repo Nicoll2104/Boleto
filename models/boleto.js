@@ -5,7 +5,6 @@ const boleto = new mongoose.Schema(
             fecha_venta: { type: Date, required: false, default: Date.now},
             hora_venta:{type:String, required:false, default: Date.now},
             fecha_salida: { type: Date, required: false, default: Date.now},
-            hora_salida: { type: String, required: true },
         }],
         asientos:{type: Number, required: true},
         Precio:{type: Number, required: true},
