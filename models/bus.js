@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Bus = new mongoose.Schema(
     {
-        placa:{type: String, required: true,minlength:5,maxlength:7},
+        placa:{type: String, required: true,minlength:3,maxlength:7},
         numero:{type: Number, required: true},
         conductor:{type:mongoose.Schema.Types.ObjectId,ref:'Conductor',required:true},
         modelo:{type: String, required: true},
