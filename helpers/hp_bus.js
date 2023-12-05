@@ -9,10 +9,14 @@ const helpersBus = {
         }
     },
     validarNumeroUnica: async (numero, id) => {
-        const busConNumero = await Bus.findOne({numero });
+        try {
+            const busConNumero = await Bus.findOne({ numero });
 
-        if (busConNumero && busConNumero._id  != id){
-            throw new Error (`Ya existe un bus con ese numero`)
+            if (busConNumero && busConNumero._id.toString() !== id.toString()) {
+                throw new Error(`Ya existe un bus con ese número`);
+            }
+        } catch (error) {
+            throw new Error(`Error al validar el número único: ${error.message}`);
         }
     }
 };
