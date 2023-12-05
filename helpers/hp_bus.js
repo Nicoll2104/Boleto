@@ -7,6 +7,9 @@ const helpersBus = {
         if (busConPlaca && busConPlaca._id != id) {
             throw new Error(`Ya existe un bus con la placa ${placa}`);
         }
+    },
+    validarNumeroUnica: async (numero, id) => {
+        
     }
 };
 
