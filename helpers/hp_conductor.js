@@ -13,7 +13,7 @@ const helpersConductor = {
   }
 },
 
-  validarN_licencia: async (n_licencia, id) => {
+  validarN_licencia: async (n_licencia, req) => {
     const conductorConLicencia = await Conductor.findOne({ n_licencia });
 
     if (req.req.method === "PUT" && req.req.body._id != conductorConLicencia._id) {
