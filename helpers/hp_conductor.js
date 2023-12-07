@@ -13,14 +13,12 @@ const helpersConductor = {
   }
 },
 
-  validarN_licencia: async (n_licencia, req) => {
+  validarN_licencia: async (n_licencia, id) => {
     const conductorConLicencia = await Conductor.findOne({ n_licencia });
 
-    if (req.req.method === "PUT" && req.req.body._id != conductorConLicencia._id) {
-      throw new Error(
-        `Ya existe la licencia ${n_licencia}`
-      );
-    }else if(req.req.method === 'POST') throw new Error(`Ya existe la licencia ${n_licencia}`);
+    if (conductorConLicencia && conductorConLicencia._id != id) {
+      throw new Error(`Ya existe un conductor con la licencia ${n_licencia}`);
+    }
   },
 };
 export default helpersConductor;
