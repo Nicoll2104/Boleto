@@ -20,6 +20,7 @@ router.post("/agregar",[
     check('horarios',"Los horarios son obligatorio").not().isEmpty().custom(helpersRuta.validarHoraUnica),
     check('distancia',"La distancia es obligatoria").not().isEmpty(),
     check('duracion',"La duracion es obligatoria").not().isEmpty(),
+    validarcampos
 ], httpRutas.postRuta);
 
 router.put("/modificar/:id",[

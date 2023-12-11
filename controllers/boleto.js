@@ -1,4 +1,5 @@
 import boleto from "../models/boleto.js";
+import helpersBoleto from "../helpers/hp_boleto.js";
 
 const httpBoletos = {
 
