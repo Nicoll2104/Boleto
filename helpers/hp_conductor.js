@@ -7,18 +7,22 @@ const helpersConductor = {
     if (existe) {
       if (req.req.method === "PUT" && req.req.body._id != existe._id) {
         throw new Error(
-        `Ya existe esa cedula`
+        `Ya existe la cedula ${cedula}`
       );
-    }else if(req.req.method === 'POST') throw new Error(`Ya existe ese cedula`);
+    }else if(req.req.method === 'POST') throw new Error(`Ya existe la cedula ${cedula}`);
   }
 },
 
-  validarN_licencia: async (n_licencia, id) => {
-    const conductorConLicencia = await Conductor.findOne({ n_licencia });
+  validarN_licencia: async (n_licencia, req) => {
+    const existe = await Conductor.findOne({ n_licencia });
 
-    if (conductorConLicencia && conductorConLicencia._id != id) {
-      throw new Error(`Ya existe un conductor con la licencia ${n_licencia}`);
-    }
-  },
+    if (existe) {
+      if (req.req.method === "PUT" && req.req.body._id != existe._id) {
+        throw new Error(
+        `Ya existe la licencia ${n_licencia}`
+      );
+    }else if(req.req.method === 'POST') throw new Error(`Ya existe la licencia ${n_licencia}`);
+  }
+},
 };
 export default helpersConductor;
