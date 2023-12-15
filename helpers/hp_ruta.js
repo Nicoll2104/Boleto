@@ -4,10 +4,13 @@ const helpersRuta = {
     validarHoraUnica: async (horarios, req) => {
         const { origen, destino, _id } = req.req.body;
 
+        // Convertir horarios a minúsculas (o mayúsculas) para hacer la comparación insensible a mayúsculas y minúsculas
+        const horariosLower = horarios.map(h => h.toLowerCase());
+
         const buscar = await Ruta.findOne({
-            origen,
-            destino,
-            horarios,
+            origen: { $regex: new RegExp('^' + origen + '$', 'i') },
+            destino: { $regex: new RegExp('^' + destino + '$', 'i') },
+            horarios: { $in: horariosLower },
         });
 
         if (buscar) {
