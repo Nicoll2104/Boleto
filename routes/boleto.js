@@ -15,8 +15,10 @@ router.get("/fecha/:fecha", httpBoletos.getBoletosPorFecha);
 
 router.get("/vendedor/:vendedor_id", httpBoletos.getBoletosPorVendedor);
 
+router.post('/asientos', httpBoletos.getAsientos)
+
 router.post("/agregar", [
-  check("fechas", "Fechas inválidas").isArray(),
+  // check("fechas", "Fechas inválidas").isArray(),
   check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersBoleto.validarAsientoUnico),
   check("Precio", "Precio inválido").isNumeric(),
   check("cliente", "id de cliente inválido").isMongoId(),
@@ -28,7 +30,7 @@ router.post("/agregar", [
 
 router.put("/modificar/:id", [
     validarcampos,
-    check("fechas", "Fechas inválidas").isArray(),
+    // check("fechas", "Fechas inválidas").isArray(),
     check("asientos", "Asiento es invalido").not().isEmpty().isNumeric().custom(helpersBoleto.validarAsientoUnico),
     check("Precio", "Agregue el valor").isNumeric(),
     check("cliente", "id de cliente inválido").isMongoId(),

@@ -79,10 +79,22 @@ const httpBoletos = {
     }
   },
 
+  getAsientos: async(req,res)=>{
+    const { fecha_salida, bus, ruta} = req.body
+    console.log( fecha_salida,bus, ruta);
+
+    const fs1 = new Date(fecha_salida + "T00:00:00.000Z");
+    const fs2 = new Date(fecha_salida + "T23:59:59.000Z");
+    const asientos = await boleto.find({ fecha_salida: { $gte: fs1, $lte: fs2 }, bus, ruta });
+
+    res.json(asientos)
+
+  },
+
   postBoleto: async (req, res) => {
     try {
-      const { fechas, asientos, Precio, cliente, bus, ruta, vendedor } = req.body;
-      const nuevoBoleto = new boleto({ fechas, asientos, Precio, cliente, bus, ruta, vendedor });
+      const { fecha_venta, hora_venta, fecha_salida, asientos, Precio, cliente, bus, ruta, vendedor } = req.body;
+      const nuevoBoleto = new boleto({ fecha_venta, hora_venta, fecha_salida, asientos, Precio, cliente, bus, ruta, vendedor });
 
       await nuevoBoleto.save();
       const boletoPopulado = await boleto.findById(nuevoBoleto._id)
@@ -101,10 +113,10 @@ const httpBoletos = {
 
   putBoleto: async (req, res) => {
     const { id } = req.params;
-    const { fechas, asientos, Precio, cliente, bus, ruta, vendedor } = req.body;
+    const { fecha_venta, hora_venta, fecha_salida, asientos, Precio, cliente, bus, ruta, vendedor } = req.body;
 
     try {
-      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fechas, asientos, Precio, cliente, bus, ruta, vendedor }, { new: true });
+      const boletoActualizado = await boleto.findByIdAndUpdate(id, { fecha_venta, hora_venta, fecha_salida, asientos, Precio, cliente, bus, ruta, vendedor }, { new: true });
 
       if (!boletoActualizado) {
         return res.status(404).json({ mensaje: 'El boleto no existe' });
